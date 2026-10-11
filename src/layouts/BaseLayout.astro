@@ -41,6 +41,13 @@ const props = Astro.props;
 		<!-- Balises SEO & Réseaux Sociaux -->
 		<Seo {...props} />
 
+		<!-- Google AdSense -->
+		<script
+			async
+			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8090003117636533"
+			crossorigin="anonymous"
+		></script>
+
 		<!-- Applique le thème clair/sombre AVANT l'affichage (évite le « flash » blanc) -->
 		<script is:inline>
 			(function () {

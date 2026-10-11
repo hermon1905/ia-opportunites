@@ -52,8 +52,8 @@ export const SOCIAL = {
 
 /** Réglages publicitaires (Google AdSense ou bannières partenaires) */
 export const ADS = {
-  enabled: false, // Passe à true lorsque ton compte AdSense sera approuvé
-  client: 'ca-pub-XXXXXXXXXXXXXXXX', // Identifiant éditeur AdSense
+  enabled: true, // Activé avec votre identifiant éditeur AdSense
+  client: 'ca-pub-8090003117636533', // Identifiant éditeur AdSense
   slots: {
     articleTop: '', // ID du bloc au début de l'article (ex. "1234567890")
     articleBottom: '', // ID du bloc à la fin de l'article
