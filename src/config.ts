@@ -13,3 +13,39 @@ export const SITE = {
   email: 'contact@exemple.com', // à remplacer
   postsPerPage: 9,
 };
+
+/** Menu principal (en-tête) */
+export const NAV = [
+  { label: 'Articles', href: '/blog' },
+  { label: 'Boutique', href: '/boutique' },
+  { label: 'Partenariats', href: '/partenariats' },
+  { label: 'À propos', href: '/a-propos' },
+  { label: 'Contact', href: '/contact' },
+];
+
+/** Liens du pied de page */
+export const FOOTER_LINKS = {
+  site: [
+    { label: 'Tous les articles', href: '/blog' },
+    { label: 'Boutique', href: '/boutique' },
+    { label: 'Travailler avec moi', href: '/partenariats' },
+    { label: 'À propos', href: '/a-propos' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Flux RSS', href: '/rss.xml' },
+  ],
+  legal: [
+    { label: 'Mentions légales', href: '/mentions-legales' },
+    { label: 'Politique de confidentialité', href: '/confidentialite' },
+    { label: "Conditions d'utilisation", href: '/conditions-utilisation' },
+  ],
+};
+
+/** Réseaux sociaux : laisse vide ('') ceux que tu n'utilises pas */
+export const SOCIAL = {
+  x: '',
+  linkedin: '',
+  whatsapp: '', // lien de chaîne WhatsApp, ex. https://whatsapp.com/channel/...
+  youtube: '',
+  instagram: '',
+  tiktok: '',
+};

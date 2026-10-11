@@ -4,7 +4,155 @@
 /* Mode sombre piloté par la classe .dark sur <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ------------------------------------------------------------------
+   PALETTE « Afrique de l'Ouest », chaleureuse et sobre
+   - terracotta : couleur principale (boutons, liens, accents)
+   - ocre       : couleur secondaire (badges, mises en avant)
+   - foret      : vert profond (succès, catégories)
+   - sable      : neutres chauds (fonds, textes, bordures)
+------------------------------------------------------------------- */
 @theme {
   --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+
+  --color-terracotta-50: #fdf4ef;
+  --color-terracotta-100: #fbe6d9;
+  --color-terracotta-200: #f6c9b0;
+  --color-terracotta-300: #efa47f;
+  --color-terracotta-400: #e6784c;
+  --color-terracotta-500: #d9592c;
+  --color-terracotta-600: #c04620;
+  --color-terracotta-700: #9f371c;
+  --color-terracotta-800: #802f1d;
+  --color-terracotta-900: #68291b;
+  --color-terracotta-950: #38120b;
+
+  --color-ocre-50: #fdf8eb;
+  --color-ocre-100: #f9ecc8;
+  --color-ocre-200: #f2d78d;
+  --color-ocre-300: #ebbe52;
+  --color-ocre-400: #e5a82e;
+  --color-ocre-500: #d68b1c;
+  --color-ocre-600: #b96a15;
+  --color-ocre-700: #944d15;
+  --color-ocre-800: #7a3e18;
+  --color-ocre-900: #673417;
+  --color-ocre-950: #3b1a09;
+
+  --color-foret-50: #eff8f3;
+  --color-foret-100: #d8eee1;
+  --color-foret-200: #b4dcc7;
+  --color-foret-300: #84c3a5;
+  --color-foret-400: #53a37f;
+  --color-foret-500: #348864;
+  --color-foret-600: #246c4f;
+  --color-foret-700: #1e5741;
+  --color-foret-800: #1a4636;
+  --color-foret-900: #163a2d;
+  --color-foret-950: #0b211a;
+
+  --color-sable-50: #fbf8f3;
+  --color-sable-100: #f5efe6;
+  --color-sable-200: #e9dfd1;
+  --color-sable-300: #d6c7b3;
+  --color-sable-400: #b39f86;
+  --color-sable-500: #8f7b64;
+  --color-sable-600: #726150;
+  --color-sable-700: #5a4c40;
+  --color-sable-800: #3d332b;
+  --color-sable-900: #2a231d;
+  --color-sable-950: #1a1511;
+}
+
+/* ------------------------------------------------------------------
+   Couleurs « sémantiques » : elles changent toutes seules en mode sombre.
+   Utilisation : bg-fond, bg-surface, text-texte, text-attenue, border-bordure…
+------------------------------------------------------------------- */
+@theme inline {
+  --color-fond: var(--fond);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-texte: var(--texte);
+  --color-attenue: var(--attenue);
+  --color-bordure: var(--bordure);
+  --color-accent: var(--accent);
+  --color-accent-fort: var(--accent-fort);
+  --color-accent-doux: var(--accent-doux);
+}
+
+:root {
+  --fond: var(--color-sable-50);
+  --surface: #ffffff;
+  --surface-2: var(--color-sable-100);
+  --texte: var(--color-sable-950);
+  --attenue: var(--color-sable-600);
+  --bordure: var(--color-sable-200);
+  --accent: var(--color-terracotta-600);
+  --accent-fort: var(--color-terracotta-700);
+  --accent-doux: var(--color-terracotta-50);
+  color-scheme: light;
+}
+
+.dark {
+  --fond: #15110d;
+  --surface: #1e1914;
+  --surface-2: #28211b;
+  --texte: var(--color-sable-100);
+  --attenue: var(--color-sable-400);
+  --bordure: #3a3029;
+  --accent: var(--color-terracotta-400);
+  --accent-fort: var(--color-terracotta-300);
+  --accent-doux: #2e1c14;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-fond text-texte font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+    font-optical-sizing: auto;
+  }
+  ::selection {
+    @apply bg-terracotta-200 text-terracotta-950;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Conteneur centré de largeur maximale */
+@utility conteneur {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+/* Boutons */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition duration-200 active:scale-[0.98];
+}
+@utility btn-primaire {
+  @apply btn bg-accent text-white shadow-sm hover:bg-accent-fort dark:text-sable-950;
+}
+@utility btn-secondaire {
+  @apply btn border border-bordure bg-surface text-texte hover:bg-surface-2;
+}
+/* Petite étiquette (catégorie, badge) */
+@utility etiquette {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+}
+/* Petit titre au-dessus d'un grand titre */
+@utility surtitre {
+  @apply text-sm font-semibold uppercase tracking-widest text-accent;
 }

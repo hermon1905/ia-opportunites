@@ -1,0 +1,27 @@
+---
+/** Logo : un soleil levant (l'opportunité) dans un carré terracotta + le nom du site */
+import { SITE } from '../config';
+interface Props { showText?: boolean; class?: string }
+const { showText = true, class: className = '' } = Astro.props;
+---
+<span class:list={['inline-flex items-center gap-2.5', className]}>
+	<svg class="h-8 w-8 shrink-0" viewBox="0 0 32 32" aria-hidden="true">
+		<defs>
+			<linearGradient id="logo-g" x1="0" y1="0" x2="1" y2="1">
+				<stop offset="0" stop-color="#d9592c" />
+				<stop offset="1" stop-color="#9f371c" />
+			</linearGradient>
+		</defs>
+		<rect width="32" height="32" rx="9" fill="url(#logo-g)" />
+		<path d="M7.5 22a8.5 8.5 0 0 1 17 0" fill="none" stroke="#fbe6d9" stroke-width="2.4" stroke-linecap="round" />
+		<circle cx="16" cy="22" r="3.2" fill="#ebbe52" />
+		<path d="M16 6.5v3M9.6 9.2l1.9 1.9M22.4 9.2l-1.9 1.9" stroke="#ebbe52" stroke-width="2" stroke-linecap="round" />
+		<path d="M6 25.5h20" stroke="#fbe6d9" stroke-width="2" stroke-linecap="round" opacity=".55" />
+	</svg>
+	{showText && (
+		<span class="font-display text-lg font-semibold leading-none tracking-tight">
+			IA <span class="text-accent">Opportunités</span>
+			<span class="sr-only"> — {SITE.name}</span>
+		</span>
+	)}
+</span>

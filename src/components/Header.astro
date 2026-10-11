@@ -1,0 +1,111 @@
+---
+import Logo from './Logo.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { NAV } from '../config';
+import { CATEGORIES } from '../data/categories';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
+---
+<header class="sticky top-0 z-40 border-b border-bordure/70 bg-fond/85 backdrop-blur-md supports-[backdrop-filter]:bg-fond/70">
+	<div class="conteneur flex h-16 items-center justify-between gap-4">
+		<a href="/" class="rounded-lg" aria-label="Accueil IA Opportunités">
+			<Logo />
+		</a>
+
+		<!-- Menu ordinateur -->
+		<nav class="hidden lg:block" aria-label="Menu principal">
+			<ul class="flex items-center gap-1">
+				{NAV.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							aria-current={isActive(item.href) ? 'page' : undefined}
+							class:list={[
+								'rounded-lg px-3 py-2 text-sm font-medium transition',
+								isActive(item.href)
+									? 'text-accent'
+									: 'text-attenue hover:bg-surface-2 hover:text-texte',
+							]}
+						>{item.label}</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+
+		<div class="flex items-center gap-1">
+			<ThemeToggle />
+			<a href="/#newsletter" class="btn-primaire ml-1 hidden sm:inline-flex">S'abonner</a>
+			<!-- Bouton menu mobile -->
+			<button
+				type="button"
+				data-menu-toggle
+				class="grid h-10 w-10 place-items-center rounded-xl text-texte transition hover:bg-surface-2 lg:hidden"
+				aria-controls="menu-mobile"
+				aria-expanded="false"
+				aria-label="Ouvrir le menu"
+			>
+				<svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+					<path data-icon-open d="M4 7h16M4 12h16M4 17h16" />
+					<path data-icon-close class="hidden" d="M6 6l12 12M18 6L6 18" />
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<!-- Menu mobile -->
+	<div id="menu-mobile" class="hidden border-t border-bordure bg-fond lg:hidden">
+		<nav class="conteneur max-h-[calc(100dvh-4rem)] overflow-y-auto py-4" aria-label="Menu mobile">
+			<ul class="space-y-1">
+				{NAV.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							aria-current={isActive(item.href) ? 'page' : undefined}
+							class:list={[
+								'block rounded-xl px-3 py-3 text-base font-medium',
+								isActive(item.href) ? 'bg-accent-doux text-accent' : 'hover:bg-surface-2',
+							]}
+						>{item.label}</a>
+					</li>
+				))}
+			</ul>
+			<p class="mt-6 px-3 text-xs font-semibold uppercase tracking-widest text-attenue">Catégories</p>
+			<ul class="mt-2 grid grid-cols-1 gap-1 sm:grid-cols-2">
+				{CATEGORIES.map((c) => (
+					<li>
+						<a href={`/categorie/${c.slug}`} class="block rounded-xl px-3 py-2.5 text-sm text-attenue hover:bg-surface-2 hover:text-texte">{c.name}</a>
+					</li>
+				))}
+			</ul>
+			<a href="/#newsletter" class="btn-primaire mt-6 w-full py-3">S'abonner à la newsletter</a>
+		</nav>
+	</div>
+</header>
+
+<script>
+	// Menu mobile : ouvrir / fermer
+	const btn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+	const menu = document.getElementById('menu-mobile');
+	if (btn && menu) {
+		const setOpen = (open: boolean) => {
+			menu.classList.toggle('hidden', !open);
+			btn.setAttribute('aria-expanded', String(open));
+			btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+			btn.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
+			btn.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+		};
+		btn.addEventListener('click', () => setOpen(menu.classList.contains('hidden')));
+		menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+		document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+	}
+
+	// Mode clair / sombre
+	document.querySelectorAll('[data-theme-toggle]').forEach((el) =>
+		el.addEventListener('click', () => {
+			const dark = document.documentElement.classList.toggle('dark');
+			localStorage.setItem('theme', dark ? 'dark' : 'light');
+			document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#15110d' : '#fbf8f3');
+		}),
+	);
+</script>
