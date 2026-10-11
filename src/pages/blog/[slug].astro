@@ -1,50 +1,184 @@
 ---
 /**
- * Page d'un article : /blog/nom-du-fichier
- * Version simple de l'étape 3 — sommaire, partage, articles similaires… arrivent à l'étape 4.
+ * Page d'un article : /blog/[slug]
+ * Étape 4 : expérience de lecture complète avec fil d'Ariane, sommaire,
+ * boutons de partage, carte auteur, navigation et articles similaires.
  */
 import { Picture } from 'astro:assets';
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import ShareButtons from '../../components/ShareButtons.astro';
+import AuthorCard from '../../components/AuthorCard.astro';
+import NewsletterCta from '../../components/NewsletterCta.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import PostNavigation from '../../components/PostNavigation.astro';
 import { getPublishedPosts, readingTime, formatDate, type Post } from '../../utils/posts';
 import { getCategory, CATEGORY_STYLES } from '../../data/categories';
-import { getAuthor } from '../../data/authors';
+import { getAuthor, initials } from '../../data/authors';
 
 export async function getStaticPaths() {
 	const posts = await getPublishedPosts();
-	return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+	return posts.map((post, index) => {
+		// Chronologie : les posts sont triés du plus récent au plus ancien
+		const nextPost = index > 0 ? posts[index - 1] : undefined;
+		const prevPost = index < posts.length - 1 ? posts[index + 1] : undefined;
+		return {
+			params: { slug: post.id },
+			props: { post, allPosts: posts, prevPost, nextPost },
+		};
+	});
 }
 
-const { post } = Astro.props as { post: Post };
-const { Content } = await render(post);
+interface Props {
+	post: Post;
+	allPosts: Post[];
+	prevPost?: Post;
+	nextPost?: Post;
+}
+
+const { post, allPosts, prevPost, nextPost } = Astro.props;
+const { Content, headings } = await render(post);
 const category = getCategory(post.data.category)!;
 const author = getAuthor(post.data.author);
+const authorInitials = initials(author.name);
 const minutes = readingTime(post.body);
 ---
-<BaseLayout title={post.data.title} description={post.data.description}>
-	<article class="conteneur max-w-3xl py-10 sm:py-16">
-		<header class="text-center">
-			<a href={`/categorie/${category.slug}`} class:list={['etiquette', CATEGORY_STYLES[category.color]]}>{category.name}</a>
-			<h1 class="mt-4 text-3xl font-semibold leading-tight sm:text-5xl">{post.data.title}</h1>
-			<p class="mt-4 text-lg text-attenue">{post.data.description}</p>
-			<p class="mt-6 text-sm text-attenue">
-				{author.name} · <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time> · {minutes} min de lecture
-			</p>
-		</header>
 
-		<Picture
-			src={post.data.image}
-			alt={post.data.imageAlt}
-			widths={[400, 800, 1200]}
-			sizes="(max-width: 768px) 100vw, 768px"
-			formats={['avif', 'webp']}
-			loading="eager"
-			fetchpriority="high"
-			class="mt-10 aspect-video w-full rounded-2xl object-cover"
+<BaseLayout title={post.data.title} description={post.data.description}>
+	<!-- Barre de progression de lecture -->
+	<div
+		id="reading-progress"
+		aria-hidden="true"
+		class="fixed left-0 top-0 z-50 h-1 w-0 bg-accent transition-[width] duration-150"
+	></div>
+
+	<div class="conteneur max-w-4xl py-8 sm:py-14">
+		<!-- Fil d'Ariane -->
+		<Breadcrumbs
+			items={[
+				{ label: 'Articles', href: '/blog' },
+				{ label: category.name, href: `/categorie/${category.slug}` },
+				{ label: post.data.title },
+			]}
+			class="mb-8"
 		/>
 
-		<div class="prose prose-stone prose-lg mt-10 max-w-none dark:prose-invert">
+		<!-- En-tête de l'article -->
+		<header class="text-center sm:text-left">
+			<div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+				<a
+					href={`/categorie/${category.slug}`}
+					class:list={['etiquette transition hover:opacity-85', CATEGORY_STYLES[category.color]]}
+				>
+					{category.name}
+				</a>
+				<span class="text-xs text-attenue">·</span>
+				<span class="text-xs font-medium text-attenue">{minutes} min de lecture</span>
+			</div>
+
+			<h1 class="mt-4 text-3xl font-semibold leading-tight sm:text-5xl lg:leading-tight">
+				{post.data.title}
+			</h1>
+
+			<p class="mt-4 text-lg text-attenue sm:text-xl">
+				{post.data.description}
+			</p>
+
+			<!-- Métadonnées Auteur & Date -->
+			<div class="mt-8 flex items-center justify-center gap-3 border-y border-bordure/70 py-4 sm:justify-start">
+				<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-terracotta-500 to-ocre-500 text-sm font-bold text-white shadow-sm">
+					{authorInitials}
+				</div>
+				<div class="text-left text-xs sm:text-sm">
+					<p class="font-semibold text-texte">{author.name}</p>
+					<p class="text-attenue">
+						Publié le <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+						{post.data.updatedDate && (
+							<span>· Mis à jour le {formatDate(post.data.updatedDate)}</span>
+						)}
+					</p>
+				</div>
+			</div>
+		</header>
+
+		<!-- Image de couverture principale -->
+		<figure class="mt-8">
+			<Picture
+				src={post.data.image}
+				alt={post.data.imageAlt}
+				widths={[480, 800, 1200]}
+				sizes="(max-width: 768px) 100vw, 896px"
+				formats={['avif', 'webp']}
+				loading="eager"
+				fetchpriority="high"
+				class="aspect-video w-full rounded-3xl border border-bordure object-cover shadow-sm"
+			/>
+			{post.data.imageAlt && (
+				<figcaption class="mt-2.5 text-center text-xs text-attenue sm:text-left">
+					{post.data.imageAlt}
+				</figcaption>
+			)}
+		</figure>
+
+		<!-- Sommaire interactif -->
+		<TableOfContents headings={headings} />
+
+		<!-- Contenu textuel de l'article -->
+		<div class="prose prose-stone prose-lg mt-8 max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-display prose-headings:font-semibold prose-a:text-accent prose-a:font-medium hover:prose-a:underline prose-img:rounded-2xl prose-blockquote:border-accent prose-blockquote:bg-surface-2/40 prose-blockquote:py-1 prose-blockquote:px-5 prose-blockquote:rounded-r-xl">
 			<Content />
 		</div>
-	</article>
+
+		<!-- Étiquettes / Tags de l'article -->
+		{post.data.tags && post.data.tags.length > 0 && (
+			<div class="mt-12 flex flex-wrap items-center gap-2 border-t border-bordure pt-6">
+				<span class="text-xs font-semibold uppercase tracking-wider text-attenue">Tags :</span>
+				{post.data.tags.map((tag) => (
+					<span class="rounded-lg bg-surface-2 px-2.5 py-1 text-xs font-medium text-attenue">
+						#{tag}
+					</span>
+				))}
+			</div>
+		)}
+
+		<!-- Boutons de partage -->
+		<ShareButtons title={post.data.title} description={post.data.description} />
+
+		<!-- Présentation de l'auteur -->
+		<AuthorCard authorId={post.data.author} />
+
+		<!-- Navigation Précédent / Suivant -->
+		<PostNavigation prevPost={prevPost} nextPost={nextPost} />
+
+		<!-- Encart Newsletter -->
+		<NewsletterCta />
+
+		<!-- Articles recommandés / similaires -->
+		<RelatedPosts currentPost={post} allPosts={allPosts} />
+	</div>
 </BaseLayout>
+
+<script>
+	// Mise à jour de la barre de progression de lecture au défilement
+	function initReadingProgress() {
+		const progressBar = document.getElementById('reading-progress');
+		if (!progressBar) return;
+
+		const updateProgress = () => {
+			const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+			if (scrollTotal <= 0) {
+				progressBar.style.width = '0%';
+				return;
+			}
+			const scrollProgress = (window.scrollY / scrollTotal) * 100;
+			progressBar.style.width = `${Math.min(100, Math.max(0, scrollProgress))}%`;
+		};
+
+		window.addEventListener('scroll', updateProgress, { passive: true });
+		updateProgress();
+	}
+
+	initReadingProgress();
+	document.addEventListener('astro:page-load', initReadingProgress);
+</script>

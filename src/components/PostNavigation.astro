@@ -1,0 +1,50 @@
+---
+/**
+ * Navigation précédent / suivant entre articles du blog.
+ */
+import type { Post } from '../utils/posts';
+
+interface Props {
+	prevPost?: Post;
+	nextPost?: Post;
+	class?: string;
+}
+
+const { prevPost, nextPost, class: className = '' } = Astro.props;
+---
+
+{(prevPost || nextPost) && (
+	<nav aria-label="Navigation entre articles" class:list={['my-10 grid gap-4 sm:grid-cols-2', className]}>
+		{prevPost ? (
+			<a
+				href={`/blog/${prevPost.id}`}
+				class="group flex flex-col justify-between rounded-2xl border border-bordure bg-surface p-5 transition duration-200 hover:border-accent/40 hover:bg-surface-2"
+			>
+				<span class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-attenue group-hover:text-accent">
+					&larr; Article précédent
+				</span>
+				<span class="mt-2 text-sm font-semibold text-texte line-clamp-2 group-hover:text-accent">
+					{prevPost.data.title}
+				</span>
+			</a>
+		) : (
+			<div class="hidden sm:block"></div>
+		)}
+
+		{nextPost ? (
+			<a
+				href={`/blog/${nextPost.id}`}
+				class="group flex flex-col justify-between rounded-2xl border border-bordure bg-surface p-5 text-right transition duration-200 hover:border-accent/40 hover:bg-surface-2"
+			>
+				<span class="inline-flex items-center justify-end gap-1.5 text-xs font-semibold uppercase tracking-wider text-attenue group-hover:text-accent">
+					Article suivant &rarr;
+				</span>
+				<span class="mt-2 text-sm font-semibold text-texte line-clamp-2 group-hover:text-accent">
+					{nextPost.data.title}
+				</span>
+			</a>
+		) : (
+			<div class="hidden sm:block"></div>
+		)}
+	</nav>
+)}

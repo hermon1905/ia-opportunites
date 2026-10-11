@@ -1,0 +1,43 @@
+---
+/**
+ * Fil d'Ariane accessible et optimisé pour le référencement.
+ */
+interface BreadcrumbItem {
+	label: string;
+	href?: string;
+}
+
+interface Props {
+	items: BreadcrumbItem[];
+	class?: string;
+}
+
+const { items, class: className = '' } = Astro.props;
+---
+
+<nav aria-label="Fil d'Ariane" class:list={['text-xs sm:text-sm text-attenue', className]}>
+	<ol class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+		<li>
+			<a href="/" class="transition hover:text-accent">Accueil</a>
+		</li>
+		{items.map((item, index) => {
+			const isLast = index === items.length - 1;
+			return (
+				<li class="flex items-center gap-1.5 sm:gap-2">
+					<svg class="h-3.5 w-3.5 shrink-0 text-attenue/50" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M6 3.5l4.5 4.5L6 12.5" />
+					</svg>
+					{isLast || !item.href ? (
+						<span class="font-medium text-texte line-clamp-1 max-w-[200px] sm:max-w-none" aria-current={isLast ? 'page' : undefined}>
+							{item.label}
+						</span>
+					) : (
+						<a href={item.href} class="transition hover:text-accent whitespace-nowrap">
+							{item.label}
+						</a>
+					)}
+				</li>
+			);
+		})}
+	</ol>
+</nav>
