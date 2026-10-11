@@ -1,0 +1,146 @@
+---
+/**
+ * Page Contact : /contact
+ * Formulaire de contact, coordonnées directes et foire aux questions rapide.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE, SOCIAL } from '../config';
+---
+
+<BaseLayout
+	title="Contact"
+	description="Contactez l'équipe d'IA OPPORTUNITES pour toute question, idée d'article ou proposition de partenariat."
+>
+	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
+		<div class="conteneur max-w-5xl">
+			<Breadcrumbs items={[{ label: 'Contact' }]} class="mb-6" />
+			<p class="surtitre">Échangeons</p>
+			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Contactez-nous</h1>
+			<p class="mt-3 max-w-2xl text-base text-attenue sm:text-lg">
+				Une question sur un article, une suggestion d'outil ou une opportunité à partager ? Nous vous répondons avec plaisir.
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur max-w-5xl py-12 sm:py-16">
+		<div class="grid gap-12 lg:grid-cols-12">
+			<!-- Formulaire de contact -->
+			<div class="lg:col-span-7">
+				<div class="rounded-3xl border border-bordure bg-surface p-6 sm:p-10 shadow-sm">
+					<h2 class="text-xl font-semibold text-texte">Envoyez-nous un message</h2>
+					<p class="mt-2 text-xs sm:text-sm text-attenue">
+						Remplissez ce formulaire et nous reviendrons vers vous sous 48 heures.
+					</p>
+
+					<form
+						class="mt-8 space-y-5"
+						onsubmit="event.preventDefault(); const res = this.querySelector('[data-contact-success]'); if(res) { res.classList.remove('hidden'); this.reset(); }"
+					>
+						<div>
+							<label for="name" class="block text-xs font-semibold uppercase tracking-wider text-texte">Votre nom ou prénom</label>
+							<input
+								type="text"
+								id="name"
+								name="name"
+								required
+								placeholder="ex. Koffi Emmanuel"
+								class="mt-2 w-full rounded-xl border border-bordure bg-surface-2/60 px-4 py-3 text-sm text-texte placeholder:text-attenue/60 focus:border-accent focus:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/20"
+							/>
+						</div>
+
+						<div>
+							<label for="email" class="block text-xs font-semibold uppercase tracking-wider text-texte">Votre adresse e-mail</label>
+							<input
+								type="email"
+								id="email"
+								name="email"
+								required
+								placeholder="ex. koffi@exemple.com"
+								class="mt-2 w-full rounded-xl border border-bordure bg-surface-2/60 px-4 py-3 text-sm text-texte placeholder:text-attenue/60 focus:border-accent focus:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/20"
+							/>
+						</div>
+
+						<div>
+							<label for="subject" class="block text-xs font-semibold uppercase tracking-wider text-texte">Sujet de votre message</label>
+							<select
+								id="subject"
+								name="subject"
+								class="mt-2 w-full rounded-xl border border-bordure bg-surface-2/60 px-4 py-3 text-sm text-texte focus:border-accent focus:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/20"
+							>
+								<option value="question">Question sur un article / un outil</option>
+								<option value="partenariat">Proposition de partenariat / sponsor</option>
+								<option value="article">Proposition de sujet ou témoignage</option>
+								<option value="autre">Autre demande</option>
+							</select>
+						</div>
+
+						<div>
+							<label for="message" class="block text-xs font-semibold uppercase tracking-wider text-texte">Votre message</label>
+							<textarea
+								id="message"
+								name="message"
+								rows="5"
+								required
+								placeholder="Expliquez-nous en quoi nous pouvons vous aider..."
+								class="mt-2 w-full rounded-xl border border-bordure bg-surface-2/60 px-4 py-3 text-sm text-texte placeholder:text-attenue/60 focus:border-accent focus:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/20"
+							></textarea>
+						</div>
+
+						<button type="submit" class="btn-primaire w-full py-3.5 text-sm font-semibold">
+							Envoyer mon message
+						</button>
+
+						<p data-contact-success class="mt-4 hidden rounded-xl bg-emerald-500/10 p-4 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+							✓ Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.
+						</p>
+					</form>
+				</div>
+			</div>
+
+			<!-- Informations complémentaires -->
+			<div class="space-y-8 lg:col-span-5">
+				<div class="rounded-3xl border border-bordure bg-surface p-6 sm:p-8 shadow-sm">
+					<h3 class="text-lg font-semibold text-texte">Coordonnées directes</h3>
+					<ul class="mt-6 space-y-4 text-sm">
+						<li class="flex items-start gap-3">
+							<span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">✉</span>
+							<div>
+								<p class="font-medium text-texte">E-mail</p>
+								<a href={`mailto:${SITE.email}`} class="text-attenue hover:text-accent">{SITE.email}</a>
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-600">⏱</span>
+							<div>
+								<p class="font-medium text-texte">Délai de réponse</p>
+								<p class="text-attenue">Sous 24h à 48h ouvrées</p>
+							</div>
+						</li>
+						<li class="flex items-start gap-3">
+							<span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-ocre-500/10 text-ocre-600">🌍</span>
+							<div>
+								<p class="font-medium text-texte">Zone horaire</p>
+								<p class="text-attenue">Afrique de l'Ouest / GMT & Paris</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+				<div class="rounded-3xl border border-bordure bg-surface-2/50 p-6 sm:p-8">
+					<h3 class="text-base font-semibold text-texte">Questions fréquentes</h3>
+					<div class="mt-4 space-y-4 text-xs sm:text-sm text-attenue">
+						<div>
+							<p class="font-semibold text-texte">Puis-je suggérer un outil à tester ?</p>
+							<p class="mt-1">Oui, envoyez-nous le lien et précisez s'il fonctionne bien sur mobile ou avec peu de connexion.</p>
+						</div>
+						<div>
+							<p class="font-semibold text-texte">Faites-vous du conseil individuel ?</p>
+							<p class="mt-1">Consultez notre page <a href="/partenariats" class="text-accent underline">Partenariats</a> pour découvrir nos offres d'ateliers et de mentorat.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</BaseLayout>

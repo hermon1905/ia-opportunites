@@ -1,0 +1,142 @@
+---
+/**
+ * Page Boutique : /boutique
+ * Présentation de ressources numériques et guides téléchargeables.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config';
+
+const products = [
+	{
+		id: 'guide-prompting-mobile',
+		badge: 'Le plus populaire',
+		badgeColor: 'bg-terracotta-50 text-terracotta-700 ring-1 ring-terracotta-200 dark:bg-terracotta-950/60 dark:text-terracotta-300 dark:ring-terracotta-900',
+		title: 'Le Guide Ultime du Prompting sur Smartphone',
+		description: 'La méthode pas-à-pas pour maîtriser ChatGPT, Claude et Meta AI avec seulement votre téléphone portable.',
+		price: '5 000 FCFA',
+		priceSub: 'ou 7,50 €',
+		features: [
+			'Guide pratique de 60 pages au format PDF lisible sur mobile',
+			'50 templates de prompts prêts à copier pour les études & le travail',
+			'Fiches mémo WhatsApp pour réviser et travailler sans connexion',
+			'Mises à jour gratuites à vie du document',
+		],
+		cta: 'Obtenir le guide immédiatement',
+	},
+	{
+		id: 'pack-freelance-ia',
+		badge: 'Pack Pro',
+		badgeColor: 'bg-ocre-50 text-ocre-800 ring-1 ring-ocre-200 dark:bg-ocre-950/60 dark:text-ocre-300 dark:ring-ocre-900',
+		title: 'Le Kit Freelance IA : Trouver vos premiers clients',
+		description: 'Tout ce dont vous avez besoin pour lancer votre activité de services numériques assistés par l’IA depuis l’Afrique.',
+		price: '10 000 FCFA',
+		priceSub: 'ou 15,00 €',
+		features: [
+			'Modèles de contrats de prestation et devis conformes',
+			'Grille de tarifs recommandés en FCFA et en Euros',
+			'Templates de profils pour Upwork, ComeUp et Malt',
+			'Scripts de messages de prospection WhatsApp & LinkedIn',
+		],
+		cta: 'Télécharger le pack complet',
+	},
+];
+---
+
+<BaseLayout
+	title="Boutique & Ressources"
+	description="Téléchargez nos guides pratiques et kits numériques pour apprendre et générer des revenus avec l'IA."
+>
+	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
+		<div class="conteneur max-w-5xl">
+			<Breadcrumbs items={[{ label: 'Boutique' }]} class="mb-6" />
+			<p class="surtitre">Ressources numériques</p>
+			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Guides & Kits Pratiques</h1>
+			<p class="mt-3 max-w-2xl text-base text-attenue sm:text-lg">
+				Des outils concrets, immédiatement applicables, conçus spécifiquement pour le contexte et les réalités des jeunes en Afrique.
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur max-w-5xl py-12 sm:py-16">
+		<!-- Réassurance sur le paiement -->
+		<div class="mb-12 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-bordure bg-surface-2/60 p-4 sm:p-6 text-xs sm:text-sm text-attenue">
+			<div class="flex items-center gap-2">
+				<span class="text-base">💳</span>
+				<span>Paiement sécurisé par <strong>Mobile Money</strong> (Wave, Orange, MTN, Moov) et Carte bancaire</span>
+			</div>
+			<div class="flex items-center gap-2">
+				<span class="text-base">⚡</span>
+				<span>Téléchargement instantané par e-mail</span>
+			</div>
+		</div>
+
+		<!-- Grille des produits -->
+		<div class="grid gap-8 lg:grid-cols-2">
+			{products.map((item) => (
+				<article class="flex flex-col justify-between rounded-3xl border border-bordure bg-surface p-8 shadow-sm transition duration-300 hover:shadow-lg">
+					<div>
+						<div class="flex items-center justify-between gap-2">
+							<span class:list={['etiquette', item.badgeColor]}>{item.badge}</span>
+							<div class="text-right">
+								<span class="text-2xl font-bold text-texte font-display">{item.price}</span>
+								<span class="block text-xs text-attenue">{item.priceSub}</span>
+							</div>
+						</div>
+
+						<h2 class="mt-6 text-2xl font-semibold leading-snug text-texte">
+							{item.title}
+						</h2>
+
+						<p class="mt-3 text-sm leading-relaxed text-attenue">
+							{item.description}
+						</p>
+
+						<div class="mt-6 border-t border-bordure/60 pt-6">
+							<p class="text-xs font-semibold uppercase tracking-wider text-texte">Ce que contient le pack :</p>
+							<ul class="mt-3 space-y-2.5 text-xs sm:text-sm text-attenue">
+								{item.features.map((feat) => (
+									<li class="flex items-start gap-2.5">
+										<span class="text-emerald-600 dark:text-emerald-400 font-bold">✓</span>
+										<span>{feat}</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
+
+					<div class="mt-8 border-t border-bordure/60 pt-6">
+						<a
+							href="/contact?sujet=commande"
+							class="btn-primaire w-full py-3.5 text-center text-sm font-semibold"
+						>
+							{item.cta}
+						</a>
+						<p class="mt-2.5 text-center text-[11px] text-attenue">
+							Garantie satisfait ou remboursé sous 7 jours
+						</p>
+					</div>
+				</article>
+			))}
+		</div>
+
+		<!-- FAQ Boutique -->
+		<section class="mt-20 border-t border-bordure pt-12">
+			<h2 class="text-2xl font-semibold text-texte">Questions fréquentes sur la boutique</h2>
+			<div class="mt-6 grid gap-6 sm:grid-cols-2">
+				<div class="rounded-2xl border border-bordure bg-surface p-6">
+					<h3 class="font-semibold text-texte text-sm sm:text-base">Comment reçois-je mon fichier ?</h3>
+					<p class="mt-2 text-xs sm:text-sm text-attenue leading-relaxed">
+						Dès validation de votre paiement, un lien de téléchargement direct vous est envoyé par e-mail. Vous pouvez le lire directement sur votre smartphone.
+					</p>
+				</div>
+				<div class="rounded-2xl border border-bordure bg-surface p-6">
+					<h3 class="font-semibold text-texte text-sm sm:text-base">Le Mobile Money est-il accepté ?</h3>
+					<p class="mt-2 text-xs sm:text-sm text-attenue leading-relaxed">
+						Oui, nous supportons Wave, Orange Money, MTN MoMo, Moov Money et les cartes Visa/Mastercard dans la plupart des pays d'Afrique subsaharienne.
+					</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

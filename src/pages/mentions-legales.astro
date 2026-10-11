@@ -1,0 +1,66 @@
+---
+/**
+ * Mentions Légales : /mentions-legales
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config';
+---
+
+<BaseLayout
+	title="Mentions Légales"
+	description="Mentions légales et informations réglementaires concernant le site IA OPPORTUNITES."
+>
+	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
+		<div class="conteneur max-w-4xl">
+			<Breadcrumbs items={[{ label: 'Mentions Légales' }]} class="mb-6" />
+			<p class="surtitre">Légal</p>
+			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Mentions Légales</h1>
+			<p class="mt-3 text-sm text-attenue">
+				Dernière mise à jour : 11 octobre 2026
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur max-w-4xl py-12 sm:py-16">
+		<div class="prose prose-stone prose-lg dark:prose-invert max-w-none prose-headings:font-display prose-a:text-accent">
+			<h2>1. Présentation et édition du site</h2>
+			<p>
+				Le site internet accessible à l'adresse <strong>{SITE.name}</strong> est un média indépendant d'information, de vulgarisation technologique et de formation sur l'intelligence artificielle.
+			</p>
+			<ul>
+				<li><strong>Nom du site :</strong> {SITE.name}</li>
+				<li><strong>Éditeur et responsable de la publication :</strong> L'équipe éditoriale IA OPPORTUNITES</li>
+				<li><strong>Courriel de contact :</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+			</ul>
+
+			<h2>2. Hébergement</h2>
+			<p>
+				Le site est hébergé sur l'infrastructure mondiale de distribution de contenu :
+			</p>
+			<ul>
+				<li><strong>Hébergeur :</strong> Cloudflare Inc.</li>
+				<li><strong>Adresse :</strong> 101 Townsend Street, San Francisco, CA 94107, États-Unis</li>
+				<li><strong>Site web :</strong> <a href="https://www.cloudflare.com" target="_blank" rel="noopener">www.cloudflare.com</a></li>
+			</ul>
+
+			<h2>3. Propriété intellectuelle</h2>
+			<p>
+				L’ensemble des contenus présents sur le site (textes, articles, guides, infographies, illustrations originales, logos et mise en page) est la propriété exclusive d'IA OPPORTUNITES, sauf mention contraire expresse.
+			</p>
+			<p>
+				Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans notre accord préalable écrit, à l'exception de courtes citations accompagnées d'un lien direct et visible vers l'article d'origine.
+			</p>
+
+			<h2>4. Liens hypertextes et responsabilité</h2>
+			<p>
+				Le site contient des liens hypertextes vers d’autres sites internet (outils tiers, cours en ligne, plateformes d'IA). Nous n'exerçons aucun contrôle sur le contenu de ces sites externes et déclinons toute responsabilité quant à leurs pratiques ou contenus.
+			</p>
+
+			<h2>5. Données personnelles et cookies</h2>
+			<p>
+				Pour toute question relative au traitement des données personnelles, à la newsletter ou aux cookies, veuillez consulter notre <a href="/confidentialite">Politique de confidentialité</a>.
+			</p>
+		</div>
+	</main>
+</BaseLayout>

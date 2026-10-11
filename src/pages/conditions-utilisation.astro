@@ -1,0 +1,61 @@
+---
+/**
+ * Conditions Générales d'Utilisation : /conditions-utilisation
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config';
+---
+
+<BaseLayout
+	title="Conditions d'Utilisation"
+	description="Conditions Générales d'Utilisation du site internet IA OPPORTUNITES."
+>
+	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
+		<div class="conteneur max-w-4xl">
+			<Breadcrumbs items={[{ label: "Conditions d'Utilisation" }]} class="mb-6" />
+			<p class="surtitre">Légal</p>
+			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Conditions d'Utilisation</h1>
+			<p class="mt-3 text-sm text-attenue">
+				Dernière mise à jour : 11 octobre 2026
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur max-w-4xl py-12 sm:py-16">
+		<div class="prose prose-stone prose-lg dark:prose-invert max-w-none prose-headings:font-display prose-a:text-accent">
+			<h2>1. Objet des présentes conditions</h2>
+			<p>
+				Les présentes Conditions Générales d'Utilisation (CGU) encadrent l'accès et l'utilisation du site <strong>{SITE.name}</strong>. Toute navigation sur le site emporte acceptation pleine et entière des présentes conditions par l'utilisateur.
+			</p>
+
+			<h2>2. Accès au site et gratuité</h2>
+			<p>
+				L'accès aux articles, dossiers et guides informatifs publiés sur le site est gratuit et accessible à tout utilisateur disposant d'une connexion internet. Les frais liés à la connexion (forfaits data, équipement) restent à la charge exclusive de l'utilisateur.
+			</p>
+
+			<h2>3. Nature informative et décharge de responsabilité</h2>
+			<p>
+				Le domaine de l'intelligence artificielle évolue à un rythme rapide. Les tutoriels, sélections d'outils, cours et opportunités de travail présentés sur {SITE.name} sont fournis à titre <strong>purement informatif et éducatif</strong>.
+			</p>
+			<p>
+				Bien que nous nous efforcions de vérifier rigoureusement nos sources et nos tests au moment de la rédaction, nous ne pouvons garantir que les offres, gratuités ou fonctionnalités des outils tiers ne changeront pas après publication. L'utilisateur est invité à faire preuve de discernement et à vérifier les conditions d'utilisation des plateformes tierces mentionnées.
+			</p>
+
+			<h2>4. Propriété intellectuelle et usage loyal</h2>
+			<p>
+				Tous les contenus édités sur ce site sont protégés par le droit d'auteur. Les utilisateurs s'interdisent toute aspiration massive de données (scraping automatisé) ou reproduction sans autorisation écrite expresse.
+			</p>
+
+			<h2>5. Liens d'affiliation et transparence commerciale</h2>
+			<p>
+				Certains articles peuvent inclure des liens partenaires ou d'affiliation. Conformément à notre charte éditoriale, ces mentions sont signalées en toute transparence et n'altèrent en rien l'indépendance de nos analyses.
+			</p>
+
+			<h2>6. Évolution des conditions</h2>
+			<p>
+				{SITE.name} se réserve le droit de modifier les présentes CGU à tout moment afin de refléter l'évolution de ses services ou de la législation en vigueur.
+			</p>
+		</div>
+	</main>
+</BaseLayout>

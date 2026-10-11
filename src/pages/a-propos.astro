@@ -1,0 +1,112 @@
+---
+/**
+ * Page À propos : /a-propos
+ * Présentation de la mission, de la vision et de l'équipe d'IA OPPORTUNITES.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import NewsletterCta from '../components/NewsletterCta.astro';
+import { SITE } from '../config';
+import { AUTHORS } from '../data/authors';
+
+const author = AUTHORS.equipe;
+---
+
+<BaseLayout
+	title="À propos"
+	description="Découvrez la mission d'IA OPPORTUNITES : rendre l'intelligence artificielle accessible, concrète et utile pour la jeunesse africaine."
+>
+	<!-- En-tête -->
+	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
+		<div class="conteneur max-w-4xl">
+			<Breadcrumbs items={[{ label: 'À propos' }]} class="mb-6" />
+			<p class="surtitre">Notre mission</p>
+			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl leading-tight">
+				Démocratiser l'IA pour la jeunesse africaine
+			</h1>
+			<p class="mt-4 max-w-2xl text-lg text-attenue sm:text-xl leading-relaxed">
+				Faire de l'intelligence artificielle un tremplin concret d'émancipation, de formation et d'entrepreneuriat, sans jargon ni barrière technique.
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur max-w-4xl py-12 sm:py-16">
+		<!-- Section Le Constat -->
+		<section class="space-y-6 text-base sm:text-lg leading-relaxed text-attenue">
+			<h2 class="text-2xl sm:text-3xl font-semibold text-texte">Pourquoi IA Opportunités ?</h2>
+			<p>
+				L'intelligence artificielle bouleverse le monde du travail, l'éducation et la création d'entreprise à une vitesse sans précédent. Pourtant, une grande partie des ressources en ligne est rédigée en anglais, s'adresse à des ingénieurs suréquipés, ou suppose un accès illimité à une connexion fibre.
+			</p>
+			<p>
+				Sur le continent africain, la réalité est différente : <strong class="text-texte">la jeunesse est ultra-connectée via son smartphone</strong>, pleine d'énergie et de créativité, mais doit souvent composer avec des forfaits data limités et peu d'ordinateurs personnels.
+			</p>
+			<div class="my-8 rounded-2xl border-l-4 border-accent bg-surface-2/60 p-6 text-texte">
+				<p class="font-medium italic">
+					« Nous refusons que l'IA devienne une nouvelle fracture numérique. Elle doit au contraire être le plus formidable égalisateur d'opportunités de notre époque. »
+				</p>
+			</div>
+		</section>
+
+		<!-- 3 Piliers -->
+		<section class="mt-16">
+			<h2 class="text-2xl sm:text-3xl font-semibold text-texte">Nos 3 engagements</h2>
+			<div class="mt-8 grid gap-6 sm:grid-cols-3">
+				<div class="rounded-2xl border border-bordure bg-surface p-6 shadow-sm">
+					<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-terracotta-500/10 text-xl text-accent font-bold">
+						1
+					</div>
+					<h3 class="mt-4 text-lg font-semibold text-texte">Zéro jargon</h3>
+					<p class="mt-2 text-sm text-attenue leading-relaxed">
+						Nous expliquons les technologies en termes clairs et accessibles. Pas besoin d'être mathématicien pour en tirer parti au quotidien.
+					</p>
+				</div>
+
+				<div class="rounded-2xl border border-bordure bg-surface p-6 shadow-sm">
+					<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-ocre-500/10 text-xl text-ocre-600 dark:text-ocre-400 font-bold">
+						2
+					</div>
+					<h3 class="mt-4 text-lg font-semibold text-texte">Mobile & frugal</h3>
+					<p class="mt-2 text-sm text-attenue leading-relaxed">
+						Chaque outil et méthode partagé est testé pour fonctionner sur smartphone et économiser vos données internet.
+					</p>
+				</div>
+
+				<div class="rounded-2xl border border-bordure bg-surface p-6 shadow-sm">
+					<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-foret-500/10 text-xl text-foret-600 dark:text-foret-400 font-bold">
+						3
+					</div>
+					<h3 class="mt-4 text-lg font-semibold text-texte">Opportunités réelles</h3>
+					<p class="mt-2 text-sm text-attenue leading-relaxed">
+						Nous nous concentrons sur ce qui paye et crée de la valeur : métiers freelance, révision académique, et lancement d'activités.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- L'équipe -->
+		<section class="mt-16 border-t border-bordure pt-12">
+			<h2 class="text-2xl sm:text-3xl font-semibold text-texte">Qui écrit sur ce blog ?</h2>
+			<div class="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 rounded-3xl border border-bordure bg-surface p-8 shadow-sm">
+				<div class="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-terracotta-500 to-ocre-500 text-2xl font-bold text-white shadow-md">
+					IA
+				</div>
+				<div class="flex-1">
+					<p class="surtitre">{author.role}</p>
+					<h3 class="text-xl font-semibold text-texte">{author.name}</h3>
+					<p class="mt-2 text-sm text-attenue leading-relaxed">
+						{author.bio}
+					</p>
+					<div class="mt-4 flex gap-4 text-sm font-semibold text-accent">
+						<a href="/contact" class="hover:underline">Nous écrire &rarr;</a>
+						<a href="/partenariats" class="hover:underline">Collaborer &rarr;</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Newsletter -->
+		<div class="mt-16">
+			<NewsletterCta />
+		</div>
+	</main>
+</BaseLayout>

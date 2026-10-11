@@ -1,0 +1,81 @@
+---
+/**
+ * Politique de confidentialité : /confidentialite
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../config';
+---
+
+<BaseLayout
+	title="Politique de Confidentialité"
+	description="Découvrez comment IA OPPORTUNITES protège vos données personnelles et respecte votre vie privée."
+>
+	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
+		<div class="conteneur max-w-4xl">
+			<Breadcrumbs items={[{ label: 'Politique de Confidentialité' }]} class="mb-6" />
+			<p class="surtitre">Protection des données</p>
+			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Politique de Confidentialité</h1>
+			<p class="mt-3 text-sm text-attenue">
+				Dernière mise à jour : 11 octobre 2026
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur max-w-4xl py-12 sm:py-16">
+		<div class="prose prose-stone prose-lg dark:prose-invert max-w-none prose-headings:font-display prose-a:text-accent">
+			<h2>1. Notre engagement</h2>
+			<p>
+				La protection de vos données personnelles est au cœur de notre démarche éthique. Nous collectons uniquement les informations strictement nécessaires pour vous fournir nos contenus et nous nous engageons à <strong>ne jamais vendre, louer ou céder vos données à des tiers</strong>.
+			</p>
+
+			<h2>2. Les données que nous collectons</h2>
+			<ul>
+				<li>
+					<strong>Inscription à la newsletter :</strong> votre adresse e-mail, collectée uniquement lorsque vous choisissez de vous abonner pour recevoir nos guides hebdomadaires.
+				</li>
+				<li>
+					<strong>Formulaire de contact :</strong> votre nom, adresse e-mail et le contenu de votre message lorsque vous choisissez de nous écrire.
+				</li>
+				<li>
+					<strong>Données de navigation anonymes :</strong> mesures d'audience respectueuses de la vie privée (pages consultées, type d'appareil, pays d'origine) sans suivi individuel intrusif.
+				</li>
+			</ul>
+
+			<h2>3. Finalités et bases légales</h2>
+			<p>Vos données sont traitées pour :</p>
+			<ul>
+				<li>L'envoi de la newsletter périodique (sur la base de votre consentement explicite) ;</li>
+				<li>La réponse à vos demandes via le formulaire de contact (sur la base de notre intérêt légitime d'échange avec notre communauté) ;</li>
+				<li>L'amélioration des performances techniques du site (sur smartphone et réseaux à faible débit).</li>
+			</ul>
+
+			<h2>4. Durée de conservation</h2>
+			<p>
+				Vos données d'e-mail sont conservées jusqu'à ce que vous décidiez de vous désinscrire. Chaque e-mail de notre part contient un lien direct permettant une <strong>désinscription immédiate et définitive en un seul clic</strong>.
+			</p>
+
+			<h2>5. Cookies et traceurs</h2>
+			<p>
+				Nous utilisons des cookies techniques nécessaires au bon fonctionnement du site (mémorisation de votre choix de mode clair/sombre et de vos préférences de consentement).
+			</p>
+			<div class="not-prose my-6 rounded-2xl border border-bordure bg-surface p-6 shadow-sm">
+				<h3 class="text-base font-semibold text-texte">Gérer vos préférences de cookies</h3>
+				<p class="mt-1 text-xs text-attenue">
+					Vous pouvez modifier vos choix de consentement à tout moment en cliquant sur le bouton ci-dessous :
+				</p>
+				<button type="button" data-cookie-settings class="btn-secondaire mt-4 text-xs font-semibold">
+					Ouvrir le panneau de gestion des cookies
+				</button>
+			</div>
+
+			<h2>6. Vos droits</h2>
+			<p>
+				Conformément aux réglementations sur la protection des données personnelles (notamment le RGPD et les législations nationales africaines sur la protection des données), vous disposez d'un droit d'accès, de rectification, de portabilité et de suppression de vos données.
+			</p>
+			<p>
+				Pour exercer ces droits, il vous suffit de nous adresser un message par e-mail à : <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+			</p>
+		</div>
+	</main>
+</BaseLayout>
