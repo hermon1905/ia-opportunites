@@ -1,0 +1,23 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/fraunces';
+import '../styles/global.css';
+import { SITE } from '../config';
+---
+
+<html lang={SITE.lang}>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{SITE.name}</title>
+		<meta name="description" content={SITE.description} />
+	</head>
+	<body class="min-h-screen grid place-items-center bg-amber-50 font-sans text-stone-800 p-6">
+		<main class="text-center max-w-xl">
+			<p class="text-sm font-semibold uppercase tracking-widest text-orange-700">Étape 1 terminée</p>
+			<h1 class="font-display text-4xl sm:text-5xl font-semibold mt-3">{SITE.name}</h1>
+			<p class="mt-4 text-lg text-stone-600">{SITE.tagline}</p>
+		</main>
+	</body>
+</html>
