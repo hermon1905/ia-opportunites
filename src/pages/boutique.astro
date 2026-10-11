@@ -9,6 +9,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import formationVideosIa from '../assets/boutique/formation-videos-ia.png';
 import digitalEmpireStarter from '../assets/boutique/digital-empire-starter.jpg';
 import botsTradingIa from '../assets/boutique/bots-trading-ia.jpg';
+import academieProduitsDigitaux from '../assets/boutique/academie-produits-digitaux.png';
 
 const products = [
 	{
@@ -73,6 +74,26 @@ const products = [
 		],
 		cta: 'Accéder à la formation Trading IA',
 	},
+	{
+		id: 'academie-produits-digitaux',
+		badge: 'Niveau Débutant · +100 Avis',
+		badgeColor: 'bg-indigo-500/10 text-indigo-600 ring-1 ring-indigo-500/30 dark:bg-indigo-500/20 dark:text-indigo-300 dark:ring-indigo-400/40',
+		title: 'Académie des Produits Digitaux : 10 Millions par an',
+		description: 'Le programme complet pour créer ton premier produit digital, lancer une boutique en ligne en quelques clics et générer des ventes avec Facebook Ads sans être un expert.',
+		image: academieProduitsDigitaux,
+		imageAlt: 'Académie des Produits Digitaux : 10 Millions par an avec les Produits Digitaux',
+		url: 'https://chariow.ly/OCSED6XU81',
+		isExternal: true,
+		features: [
+			'Vidéos de formation pas à pas (100% accessible sur mobile)',
+			'Des sessions lives & accompagnement régulier',
+			'Des ressources pratiques & templates prêts à l’emploi',
+			'Créer ton premier produit digital en quelques clics',
+			'Lancer une boutique et des publicités rentables',
+			'Accès à vie & communauté (+100 avis positifs)',
+		],
+		cta: 'Rejoindre l’Académie des Produits Digitaux',
+	},
 ];
 ---
 
@@ -104,10 +125,10 @@ const products = [
 			</div>
 		</div>
 
-		<!-- Grille des 3 formations -->
-		<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+		<!-- Grille des 4 formations -->
+		<div class="grid gap-8 md:grid-cols-2">
 			{products.map((item) => (
-				<article class="group flex flex-col justify-between overflow-hidden rounded-3xl border border-bordure bg-surface p-6 sm:p-7 shadow-sm transition duration-300 hover:shadow-xl hover:border-accent/30">
+				<article class="group flex flex-col justify-between overflow-hidden rounded-3xl border border-bordure bg-surface p-6 sm:p-8 shadow-sm transition duration-300 hover:shadow-xl hover:border-accent/30">
 					<div>
 						<!-- Image de couverture de la formation -->
 						{item.image && (
@@ -121,7 +142,7 @@ const products = [
 									src={item.image}
 									alt={item.imageAlt || item.title}
 									widths={[480, 800, 1200]}
-									sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+									sizes="(max-width: 768px) 100vw, 600px"
 									formats={['avif', 'webp']}
 									class="w-full aspect-[16/9] object-cover transition duration-300 group-hover:scale-105"
 									loading="eager"
@@ -133,7 +154,7 @@ const products = [
 							<span class:list={['etiquette font-semibold', item.badgeColor]}>{item.badge}</span>
 						</div>
 
-						<h2 class="mt-4 text-xl font-semibold leading-snug text-texte transition group-hover:text-accent">
+						<h2 class="mt-4 text-xl sm:text-2xl font-semibold leading-snug text-texte transition group-hover:text-accent">
 							<a
 								href={item.url}
 								target={item.isExternal ? '_blank' : undefined}
@@ -166,7 +187,7 @@ const products = [
 							href={item.url}
 							target={item.isExternal ? '_blank' : undefined}
 							rel={item.isExternal ? 'noopener noreferrer' : undefined}
-							class="btn-primaire w-full py-3 text-center text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-1.5 shadow-md transition duration-200 hover:scale-[1.01]"
+							class="btn-primaire w-full py-3.5 text-center text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-1.5 shadow-md transition duration-200 hover:scale-[1.01]"
 						>
 							<span>{item.cta}</span>
 							{item.isExternal && (
