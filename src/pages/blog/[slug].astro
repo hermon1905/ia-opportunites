@@ -1,0 +1,50 @@
+---
+/**
+ * Page d'un article : /blog/nom-du-fichier
+ * Version simple de l'étape 3 — sommaire, partage, articles similaires… arrivent à l'étape 4.
+ */
+import { Picture } from 'astro:assets';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, readingTime, formatDate, type Post } from '../../utils/posts';
+import { getCategory, CATEGORY_STYLES } from '../../data/categories';
+import { getAuthor } from '../../data/authors';
+
+export async function getStaticPaths() {
+	const posts = await getPublishedPosts();
+	return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+const category = getCategory(post.data.category)!;
+const author = getAuthor(post.data.author);
+const minutes = readingTime(post.body);
+---
+<BaseLayout title={post.data.title} description={post.data.description}>
+	<article class="conteneur max-w-3xl py-10 sm:py-16">
+		<header class="text-center">
+			<a href={`/categorie/${category.slug}`} class:list={['etiquette', CATEGORY_STYLES[category.color]]}>{category.name}</a>
+			<h1 class="mt-4 text-3xl font-semibold leading-tight sm:text-5xl">{post.data.title}</h1>
+			<p class="mt-4 text-lg text-attenue">{post.data.description}</p>
+			<p class="mt-6 text-sm text-attenue">
+				{author.name} · <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time> · {minutes} min de lecture
+			</p>
+		</header>
+
+		<Picture
+			src={post.data.image}
+			alt={post.data.imageAlt}
+			widths={[400, 800, 1200]}
+			sizes="(max-width: 768px) 100vw, 768px"
+			formats={['avif', 'webp']}
+			loading="eager"
+			fetchpriority="high"
+			class="mt-10 aspect-video w-full rounded-2xl object-cover"
+		/>
+
+		<div class="prose prose-stone prose-lg mt-10 max-w-none dark:prose-invert">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>
