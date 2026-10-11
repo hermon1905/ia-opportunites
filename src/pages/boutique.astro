@@ -1,28 +1,32 @@
 ---
 /**
  * Page Boutique : /boutique
- * Présentation de ressources numériques et guides téléchargeables.
+ * Présentation de ressources numériques, formations et guides téléchargeables.
  */
+import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { SITE } from '../config';
+import formationVideosIa from '../assets/boutique/formation-videos-ia.png';
 
 const products = [
 	{
-		id: 'guide-prompting-mobile',
-		badge: 'Le plus populaire',
-		badgeColor: 'bg-terracotta-50 text-terracotta-700 ring-1 ring-terracotta-200 dark:bg-terracotta-950/60 dark:text-terracotta-300 dark:ring-terracotta-900',
-		title: 'Le Guide Ultime du Prompting sur Smartphone',
-		description: 'La méthode pas-à-pas pour maîtriser ChatGPT, Claude et Meta AI avec seulement votre téléphone portable.',
-		price: '5 000 FCFA',
-		priceSub: 'ou 7,50 €',
+		id: 'formation-videos-ia',
+		badge: 'Formation Exclusive',
+		badgeColor: 'bg-amber-500/10 text-amber-600 ring-1 ring-amber-500/30 dark:bg-amber-500/20 dark:text-amber-300 dark:ring-amber-400/40',
+		title: 'Crée des Vidéos IA Ultra-Réalistes qui Vendent pour Toi',
+		description: 'La méthode pas-à-pas pour générer des vidéos captivantes et des visages photoréalistes depuis ton téléphone en moins de 2 heures, pour booster tes ventes ou te lancer en freelance.',
+		image: formationVideosIa,
+		imageAlt: 'Formation Exclusive : Crée des Vidéos IA Ultra-Réalistes qui Vendent pour Toi',
+		url: 'https://chariow.ly/T8Q9VAD5R1',
+		isExternal: true,
 		features: [
-			'Guide pratique de 60 pages au format PDF lisible sur mobile',
-			'50 templates de prompts prêts à copier pour les études & le travail',
-			'Fiches mémo WhatsApp pour réviser et travailler sans connexion',
-			'Mises à jour gratuites à vie du document',
+			'Création d’avatars et visages IA ultra-réalistes',
+			'Animation vidéo & synchronisation labiale (lip-sync)',
+			'Bonus inclus : +300 Prompts IA prêts à copier',
+			'100% réalisable depuis ton smartphone en moins de 2 heures',
+			'Accès immédiat et visionnage à vie',
 		],
-		cta: 'Obtenir le guide immédiatement',
+		cta: 'Accéder à la formation maintenant',
 	},
 	{
 		id: 'pack-freelance-ia',
@@ -32,6 +36,8 @@ const products = [
 		description: 'Tout ce dont vous avez besoin pour lancer votre activité de services numériques assistés par l’IA depuis l’Afrique.',
 		price: '10 000 FCFA',
 		priceSub: 'ou 15,00 €',
+		url: '/contact?sujet=pack-freelance',
+		isExternal: false,
 		features: [
 			'Modèles de contrats de prestation et devis conformes',
 			'Grille de tarifs recommandés en FCFA et en Euros',
@@ -44,16 +50,16 @@ const products = [
 ---
 
 <BaseLayout
-	title="Boutique & Ressources"
-	description="Téléchargez nos guides pratiques et kits numériques pour apprendre et générer des revenus avec l'IA."
+	title="Boutique & Formations"
+	description="Découvrez nos formations exclusives et kits pratiques pour maîtriser l'IA sur smartphone et générer des revenus."
 >
 	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
 		<div class="conteneur max-w-5xl">
 			<Breadcrumbs items={[{ label: 'Boutique' }]} class="mb-6" />
-			<p class="surtitre">Ressources numériques</p>
-			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Guides & Kits Pratiques</h1>
+			<p class="surtitre">Formations & Ressources</p>
+			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Formations & Guides Pratiques</h1>
 			<p class="mt-3 max-w-2xl text-base text-attenue sm:text-lg">
-				Des outils concrets, immédiatement applicables, conçus spécifiquement pour le contexte et les réalités des jeunes en Afrique.
+				Des compétences immédiatement rentables et applicables sur smartphone, conçues pour les créateurs, commerçants et freelances.
 			</p>
 		</div>
 	</header>
@@ -67,25 +73,54 @@ const products = [
 			</div>
 			<div class="flex items-center gap-2">
 				<span class="text-base">⚡</span>
-				<span>Téléchargement instantané par e-mail</span>
+				<span>Accès immédiat après commande</span>
 			</div>
 		</div>
 
 		<!-- Grille des produits -->
 		<div class="grid gap-8 lg:grid-cols-2">
 			{products.map((item) => (
-				<article class="flex flex-col justify-between rounded-3xl border border-bordure bg-surface p-8 shadow-sm transition duration-300 hover:shadow-lg">
+				<article class="group flex flex-col justify-between overflow-hidden rounded-3xl border border-bordure bg-surface p-6 sm:p-8 shadow-sm transition duration-300 hover:shadow-xl hover:border-accent/30">
 					<div>
+						<!-- Image de couverture de la formation (si présente) -->
+						{item.image && (
+							<a
+								href={item.url}
+								target={item.isExternal ? '_blank' : undefined}
+								rel={item.isExternal ? 'noopener noreferrer' : undefined}
+								class="block overflow-hidden rounded-2xl border border-bordure/80 bg-black/90 shadow-sm transition duration-300 group-hover:shadow-md mb-6"
+							>
+								<Picture
+									src={item.image}
+									alt={item.imageAlt || item.title}
+									widths={[480, 800, 1200]}
+									sizes="(max-width: 768px) 100vw, 600px"
+									formats={['avif', 'webp']}
+									class="w-full aspect-[21/9] sm:aspect-[16/7] object-cover transition duration-300 group-hover:scale-105"
+									loading="eager"
+								/>
+							</a>
+						)}
+
 						<div class="flex items-center justify-between gap-2">
-							<span class:list={['etiquette', item.badgeColor]}>{item.badge}</span>
-							<div class="text-right">
-								<span class="text-2xl font-bold text-texte font-display">{item.price}</span>
-								<span class="block text-xs text-attenue">{item.priceSub}</span>
-							</div>
+							<span class:list={['etiquette font-semibold', item.badgeColor]}>{item.badge}</span>
+							{item.price && (
+								<div class="text-right">
+									<span class="text-2xl font-bold text-texte font-display">{item.price}</span>
+									<span class="block text-xs text-attenue">{item.priceSub}</span>
+								</div>
+							)}
 						</div>
 
-						<h2 class="mt-6 text-2xl font-semibold leading-snug text-texte">
-							{item.title}
+						<h2 class="mt-5 text-2xl font-semibold leading-snug text-texte transition group-hover:text-accent">
+							<a
+								href={item.url}
+								target={item.isExternal ? '_blank' : undefined}
+								rel={item.isExternal ? 'noopener noreferrer' : undefined}
+								class="focus:outline-none"
+							>
+								{item.title}
+							</a>
 						</h2>
 
 						<p class="mt-3 text-sm leading-relaxed text-attenue">
@@ -93,7 +128,7 @@ const products = [
 						</p>
 
 						<div class="mt-6 border-t border-bordure/60 pt-6">
-							<p class="text-xs font-semibold uppercase tracking-wider text-texte">Ce que contient le pack :</p>
+							<p class="text-xs font-semibold uppercase tracking-wider text-texte">Au programme :</p>
 							<ul class="mt-3 space-y-2.5 text-xs sm:text-sm text-attenue">
 								{item.features.map((feat) => (
 									<li class="flex items-start gap-2.5">
@@ -107,13 +142,18 @@ const products = [
 
 					<div class="mt-8 border-t border-bordure/60 pt-6">
 						<a
-							href="/contact?sujet=commande"
-							class="btn-primaire w-full py-3.5 text-center text-sm font-semibold"
+							href={item.url}
+							target={item.isExternal ? '_blank' : undefined}
+							rel={item.isExternal ? 'noopener noreferrer' : undefined}
+							class="btn-primaire w-full py-3.5 text-center text-sm font-semibold inline-flex items-center justify-center gap-2 shadow-md transition duration-200 hover:scale-[1.01]"
 						>
-							{item.cta}
+							<span>{item.cta}</span>
+							{item.isExternal && (
+								<span aria-hidden="true" class="text-base">&nearr;</span>
+							)}
 						</a>
 						<p class="mt-2.5 text-center text-[11px] text-attenue">
-							Garantie satisfait ou remboursé sous 7 jours
+							Paiement sécurisé via Chariow (Mobile Money & Carte)
 						</p>
 					</div>
 				</article>
@@ -122,18 +162,18 @@ const products = [
 
 		<!-- FAQ Boutique -->
 		<section class="mt-20 border-t border-bordure pt-12">
-			<h2 class="text-2xl font-semibold text-texte">Questions fréquentes sur la boutique</h2>
+			<h2 class="text-2xl font-semibold text-texte">Questions fréquentes sur les formations</h2>
 			<div class="mt-6 grid gap-6 sm:grid-cols-2">
 				<div class="rounded-2xl border border-bordure bg-surface p-6">
-					<h3 class="font-semibold text-texte text-sm sm:text-base">Comment reçois-je mon fichier ?</h3>
+					<h3 class="font-semibold text-texte text-sm sm:text-base">Comment se déroule la formation vidéo ?</h3>
 					<p class="mt-2 text-xs sm:text-sm text-attenue leading-relaxed">
-						Dès validation de votre paiement, un lien de téléchargement direct vous est envoyé par e-mail. Vous pouvez le lire directement sur votre smartphone.
+						La formation est 100% en ligne et accessible immédiatement après paiement sur la plateforme Chariow. Vous pouvez suivre chaque étape pas-à-pas directement depuis votre smartphone.
 					</p>
 				</div>
 				<div class="rounded-2xl border border-bordure bg-surface p-6">
-					<h3 class="font-semibold text-texte text-sm sm:text-base">Le Mobile Money est-il accepté ?</h3>
+					<h3 class="font-semibold text-texte text-sm sm:text-base">Quels moyens de paiement sont acceptés ?</h3>
 					<p class="mt-2 text-xs sm:text-sm text-attenue leading-relaxed">
-						Oui, nous supportons Wave, Orange Money, MTN MoMo, Moov Money et les cartes Visa/Mastercard dans la plupart des pays d'Afrique subsaharienne.
+						Chariow accepte tous les principaux comptes Mobile Money (Wave, Orange Money, MTN MoMo, Moov Money) ainsi que les cartes bancaires Visa et Mastercard internationales.
 					</p>
 				</div>
 			</div>
