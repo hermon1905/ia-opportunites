@@ -1,7 +1,7 @@
 ---
 /**
- * Page Boutique : /boutique
- * Présentation de ressources numériques, formations et guides téléchargeables.
+ * Page Formations : /formations
+ * Présentation des formations exclusives et programmes pratiques.
  */
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -98,12 +98,12 @@ const products = [
 ---
 
 <BaseLayout
-	title="Boutique & Formations"
-	description="Découvrez nos formations exclusives et kits pratiques pour maîtriser l'IA sur smartphone, lancer un business digital et automatiser vos revenus."
+	title="Formations & Guides Pratiques"
+	description="Découvrez nos formations exclusives et programmes pratiques pour maîtriser l'IA sur smartphone, lancer un business digital et générer des revenus."
 >
 	<header class="border-b border-bordure bg-surface/50 py-10 sm:py-14">
 		<div class="conteneur max-w-5xl">
-			<Breadcrumbs items={[{ label: 'Boutique' }]} class="mb-5" />
+			<Breadcrumbs items={[{ label: 'Formations' }]} class="mb-5" />
 			<p class="surtitre">Formations & Ressources</p>
 			<h1 class="mt-2 text-2xl font-semibold sm:text-4xl">Formations & Guides Pratiques</h1>
 			<p class="mt-2.5 max-w-2xl text-sm text-attenue sm:text-base">

@@ -14,6 +14,9 @@ export default defineConfig({
   // URLs propres sans slash final : /blog/mon-article
   trailingSlash: 'never',
   build: { format: 'file' },
+  redirects: {
+    '/boutique': '/formations',
+  },
   // Précharge une page quand on survole/touche un lien : navigation quasi instantanée
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   vite: {

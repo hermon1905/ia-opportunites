@@ -17,7 +17,7 @@ export const SITE = {
 /** Menu principal (en-tête) */
 export const NAV = [
   { label: 'Articles', href: '/blog' },
-  { label: 'Boutique', href: '/boutique' },
+  { label: 'Formations', href: '/formations' },
   { label: 'Partenariats', href: '/partenariats' },
   { label: 'À propos', href: '/a-propos' },
   { label: 'Contact', href: '/contact' },
@@ -27,7 +27,7 @@ export const NAV = [
 export const FOOTER_LINKS = {
   site: [
     { label: 'Tous les articles', href: '/blog' },
-    { label: 'Boutique', href: '/boutique' },
+    { label: 'Formations', href: '/formations' },
     { label: 'Travailler avec moi', href: '/partenariats' },
     { label: 'À propos', href: '/a-propos' },
     { label: 'Contact', href: '/contact' },
