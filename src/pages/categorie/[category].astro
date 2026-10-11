@@ -1,0 +1,98 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, readingTime, formatDate } from '../../utils/posts';
+import { CATEGORIES, CATEGORY_STYLES, getCategory, type CategorySlug } from '../../data/categories';
+import { getAuthor } from '../../data/authors';
+
+export async function getStaticPaths() {
+	const allPosts = await getPublishedPosts();
+	return CATEGORIES.map((cat) => ({
+		params: { category: cat.slug },
+		props: {
+			category: cat,
+			posts: allPosts.filter((p) => p.data.category === cat.slug),
+		},
+	}));
+}
+
+interface Props {
+	category: (typeof CATEGORIES)[number];
+	posts: Awaited<ReturnType<typeof getPublishedPosts>>;
+}
+
+const { category, posts } = Astro.props;
+---
+
+<BaseLayout
+	title={`${category.name} — Articles`}
+	description={category.description}
+>
+	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
+		<div class="conteneur">
+			<a href="/blog" class="text-xs font-semibold uppercase tracking-wider text-accent hover:underline">&larr; Tous les articles</a>
+			<div class="mt-4 flex items-center gap-3">
+				<span class:list={['etiquette text-sm px-3 py-1', CATEGORY_STYLES[category.color]]}>{category.name}</span>
+				<span class="text-sm text-attenue">({posts.length} article{posts.length > 1 ? 's' : ''})</span>
+			</div>
+			<h1 class="mt-3 text-3xl font-semibold sm:text-5xl">{category.name}</h1>
+			<p class="mt-3 max-w-2xl text-base text-attenue sm:text-lg">
+				{category.description}
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur py-12">
+		{posts.length === 0 ? (
+			<div class="rounded-2xl border border-dashed border-bordure bg-surface p-12 text-center">
+				<p class="text-lg font-medium text-texte">Aucun article dans cette catégorie pour le moment.</p>
+				<p class="mt-2 text-sm text-attenue">De nouveaux contenus arrivent très bientôt !</p>
+				<a href="/blog" class="btn-primaire mt-6 inline-flex">Retourner au blog</a>
+			</div>
+		) : (
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				{posts.map((post) => {
+					const author = getAuthor(post.data.author);
+					const time = readingTime(post.body);
+
+					return (
+						<article class="group flex flex-col overflow-hidden rounded-2xl border border-bordure bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-lg">
+							<a href={`/blog/${post.id}`} class="block aspect-video overflow-hidden bg-surface-2">
+								<Picture
+									src={post.data.image}
+									alt={post.data.imageAlt}
+									widths={[360, 600]}
+									sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+									formats={['avif', 'webp']}
+									class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+									loading="lazy"
+								/>
+							</a>
+
+							<div class="flex flex-1 flex-col p-6">
+								<div class="flex items-center justify-between gap-2">
+									<span class="text-xs text-attenue">{time} min de lecture</span>
+								</div>
+
+								<h2 class="mt-3 text-xl font-semibold leading-snug group-hover:text-accent">
+									<a href={`/blog/${post.id}`}>
+										{post.data.title}
+									</a>
+								</h2>
+
+								<p class="mt-2.5 line-clamp-2 flex-1 text-sm text-attenue">
+									{post.data.description}
+								</p>
+
+								<div class="mt-6 flex items-center justify-between border-t border-bordure/60 pt-4 text-xs text-attenue">
+									<span>{author.name}</span>
+									<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+								</div>
+							</div>
+						</article>
+					);
+				})}
+			</div>
+		)}
+	</main>
+</BaseLayout>
