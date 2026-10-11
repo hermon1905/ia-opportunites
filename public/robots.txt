@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap officiel du site
+Sitemap: https://ia-opportunites.pages.dev/sitemap-index.xml

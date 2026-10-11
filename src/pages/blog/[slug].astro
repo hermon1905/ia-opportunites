@@ -46,7 +46,18 @@ const authorInitials = initials(author.name);
 const minutes = readingTime(post.body);
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout
+	title={post.data.title}
+	description={post.data.description}
+	image={post.data.image}
+	imageAlt={post.data.imageAlt}
+	type="article"
+	publishedTime={post.data.pubDate}
+	modifiedTime={post.data.updatedDate}
+	author={author.name}
+	category={category.name}
+	tags={post.data.tags}
+>
 	<!-- Barre de progression de lecture -->
 	<div
 		id="reading-progress"
