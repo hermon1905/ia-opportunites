@@ -8,6 +8,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import formationVideosIa from '../assets/boutique/formation-videos-ia.png';
 import digitalEmpireStarter from '../assets/boutique/digital-empire-starter.jpg';
+import botsTradingIa from '../assets/boutique/bots-trading-ia.jpg';
 
 const products = [
 	{
@@ -34,7 +35,7 @@ const products = [
 		badge: 'Pack Business Complet',
 		badgeColor: 'bg-emerald-500/10 text-emerald-600 ring-1 ring-emerald-500/30 dark:bg-emerald-500/20 dark:text-emerald-300 dark:ring-emerald-400/40',
 		title: 'DIGITAL EMPIRE STARTER',
-		description: 'Voici TOUT ce que vous obtiendrez en rejoignant DIGITAL EMPIRE STARTER dès aujourd’hui pour lancer votre business automatisé :',
+		description: 'Voici TOUT ce que vous obtiendrez en rejoignant DIGITAL EMPIRE STARTER dès aujourd’hui pour lancer votre business automatisé de vente de produits digitaux :',
 		image: digitalEmpireStarter,
 		imageAlt: 'Formation DIGITAL EMPIRE STARTER : Vente de Produits Digitaux et Automatisation',
 		url: 'https://chariow.ly/6TI3ENS7M0',
@@ -46,22 +47,41 @@ const products = [
 			'Module 4 : Mettre en Place ton Système Automatisé',
 			'Module 5 : Attirer des Acheteurs (Sans Budget Pub)',
 			'Module 6 : Lancer Des Publicités Facebook ads',
-			'Bonus 2 : Système Automatisé en 1 Clic qui Vend Pendant que Tu Dors',
-			'Bonus 3 : Pack “Contenu Viral” – Prêt à l’emploi pour Attirer des Acheteurs',
-			'Bonus 4 : Templates Puissants',
+			'Bonus 2 : Système Automatisé en 1 Clic (Vendre en dormant)',
+			'Bonus 3 : Pack “Contenu Viral” Prêt à l’emploi',
+			'Bonus 4 : Templates Puissants & Prêts à l’Emploi',
 			'Bonus 5 : Protocole Clients Satisfaits',
 		],
 		cta: 'Rejoindre DIGITAL EMPIRE STARTER',
+	},
+	{
+		id: 'bots-trading-ia',
+		badge: 'Finance & IA',
+		badgeColor: 'bg-sky-500/10 text-sky-600 ring-1 ring-sky-500/30 dark:bg-sky-500/20 dark:text-sky-300 dark:ring-sky-400/40',
+		title: 'Comment Gagner de l’Argent avec les Bots de TRADING IA',
+		description: 'Apprends à configurer et exploiter des algorithmes de trading automatisés (+650$/mois) avec une gestion rigoureuse du risque et des retraits Mobile Money.',
+		image: botsTradingIa,
+		imageAlt: 'Formation Comment Gagner de l’Argent avec les Bots de TRADING IA en 2026',
+		url: 'https://chariow.ly/0VKGU91CQ2',
+		isExternal: true,
+		features: [
+			'Configuration pas-à-pas des bots de trading algorithmique',
+			'Stratégies éprouvées & gestion stricte du risque financier',
+			'Dépôts et retraits directs par Mobile Money (Orange, MTN, Moov)',
+			'100% pilotable et configurable depuis un smartphone',
+			'Mises à jour régulières des algorithmes & communauté',
+		],
+		cta: 'Accéder à la formation Trading IA',
 	},
 ];
 ---
 
 <BaseLayout
 	title="Boutique & Formations"
-	description="Découvrez nos formations exclusives et kits pratiques pour maîtriser l'IA sur smartphone et générer des revenus en ligne."
+	description="Découvrez nos formations exclusives et kits pratiques pour maîtriser l'IA sur smartphone, lancer un business digital et automatiser vos revenus."
 >
 	<header class="border-b border-bordure bg-surface/50 py-12 sm:py-16">
-		<div class="conteneur max-w-5xl">
+		<div class="conteneur max-w-7xl">
 			<Breadcrumbs items={[{ label: 'Boutique' }]} class="mb-6" />
 			<p class="surtitre">Formations & Ressources</p>
 			<h1 class="mt-2 text-3xl font-semibold sm:text-5xl">Formations & Guides Pratiques</h1>
@@ -71,7 +91,7 @@ const products = [
 		</div>
 	</header>
 
-	<main class="conteneur max-w-5xl py-12 sm:py-16">
+	<main class="conteneur max-w-7xl py-12 sm:py-16">
 		<!-- Réassurance sur le paiement -->
 		<div class="mb-12 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-bordure bg-surface-2/60 p-4 sm:p-6 text-xs sm:text-sm text-attenue">
 			<div class="flex items-center gap-2">
@@ -84,10 +104,10 @@ const products = [
 			</div>
 		</div>
 
-		<!-- Grille des produits -->
-		<div class="grid gap-8 lg:grid-cols-2">
+		<!-- Grille des 3 formations -->
+		<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 			{products.map((item) => (
-				<article class="group flex flex-col justify-between overflow-hidden rounded-3xl border border-bordure bg-surface p-6 sm:p-8 shadow-sm transition duration-300 hover:shadow-xl hover:border-accent/30">
+				<article class="group flex flex-col justify-between overflow-hidden rounded-3xl border border-bordure bg-surface p-6 sm:p-7 shadow-sm transition duration-300 hover:shadow-xl hover:border-accent/30">
 					<div>
 						<!-- Image de couverture de la formation -->
 						{item.image && (
@@ -101,9 +121,9 @@ const products = [
 									src={item.image}
 									alt={item.imageAlt || item.title}
 									widths={[480, 800, 1200]}
-									sizes="(max-width: 768px) 100vw, 600px"
+									sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
 									formats={['avif', 'webp']}
-									class="w-full aspect-[21/9] sm:aspect-[16/7] object-cover transition duration-300 group-hover:scale-105"
+									class="w-full aspect-[16/9] object-cover transition duration-300 group-hover:scale-105"
 									loading="eager"
 								/>
 							</a>
@@ -113,7 +133,7 @@ const products = [
 							<span class:list={['etiquette font-semibold', item.badgeColor]}>{item.badge}</span>
 						</div>
 
-						<h2 class="mt-5 text-2xl font-semibold leading-snug text-texte transition group-hover:text-accent">
+						<h2 class="mt-4 text-xl font-semibold leading-snug text-texte transition group-hover:text-accent">
 							<a
 								href={item.url}
 								target={item.isExternal ? '_blank' : undefined}
@@ -124,15 +144,15 @@ const products = [
 							</a>
 						</h2>
 
-						<p class="mt-3 text-sm leading-relaxed text-attenue">
+						<p class="mt-2.5 text-xs sm:text-sm leading-relaxed text-attenue">
 							{item.description}
 						</p>
 
-						<div class="mt-6 border-t border-bordure/60 pt-6">
+						<div class="mt-5 border-t border-bordure/60 pt-5">
 							<p class="text-xs font-semibold uppercase tracking-wider text-texte">Au programme :</p>
-							<ul class="mt-3 space-y-2.5 text-xs sm:text-sm text-attenue">
+							<ul class="mt-3 space-y-2 text-xs text-attenue">
 								{item.features.map((feat) => (
-									<li class="flex items-start gap-2.5">
+									<li class="flex items-start gap-2">
 										<span class="text-emerald-600 dark:text-emerald-400 font-bold shrink-0">✓</span>
 										<span>{feat}</span>
 									</li>
@@ -141,19 +161,19 @@ const products = [
 						</div>
 					</div>
 
-					<div class="mt-8 border-t border-bordure/60 pt-6">
+					<div class="mt-7 border-t border-bordure/60 pt-5">
 						<a
 							href={item.url}
 							target={item.isExternal ? '_blank' : undefined}
 							rel={item.isExternal ? 'noopener noreferrer' : undefined}
-							class="btn-primaire w-full py-3.5 text-center text-sm font-semibold inline-flex items-center justify-center gap-2 shadow-md transition duration-200 hover:scale-[1.01]"
+							class="btn-primaire w-full py-3 text-center text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-1.5 shadow-md transition duration-200 hover:scale-[1.01]"
 						>
 							<span>{item.cta}</span>
 							{item.isExternal && (
 								<span aria-hidden="true" class="text-base">&nearr;</span>
 							)}
 						</a>
-						<p class="mt-2.5 text-center text-[11px] text-attenue">
+						<p class="mt-2 text-center text-[11px] text-attenue">
 							Paiement sécurisé via Chariow (Mobile Money & Carte)
 						</p>
 					</div>
