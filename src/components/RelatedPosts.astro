@@ -2,10 +2,8 @@
 /**
  * Section « Articles similaires » recommandée en bas de page.
  */
-import { Picture } from 'astro:assets';
-import { getRelatedPosts, type Post, readingTime, formatDate } from '../utils/posts';
-import { getCategory, CATEGORY_STYLES } from '../data/categories';
-import { getAuthor } from '../data/authors';
+import ArticleCard from './ArticleCard.astro';
+import { getRelatedPosts, type Post } from '../utils/posts';
 
 interface Props {
 	currentPost: Post;
@@ -31,51 +29,9 @@ const related = getRelatedPosts(currentPost, allPosts, limit);
 		</div>
 
 		<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			{related.map((post) => {
-				const cat = getCategory(post.data.category)!;
-				const author = getAuthor(post.data.author);
-				const time = readingTime(post.body);
-
-				return (
-					<article class="group flex flex-col overflow-hidden rounded-2xl border border-bordure bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-lg">
-						<a href={`/blog/${post.id}`} class="block aspect-video overflow-hidden bg-surface-2">
-							<Picture
-								src={post.data.image}
-								alt={post.data.imageAlt}
-								widths={[360, 600]}
-								sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-								formats={['avif', 'webp']}
-								class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-								loading="lazy"
-							/>
-						</a>
-
-						<div class="flex flex-1 flex-col p-5">
-							<div class="flex items-center justify-between gap-2">
-								<a href={`/categorie/${cat.slug}`} class:list={['etiquette', CATEGORY_STYLES[cat.color]]}>
-									{cat.name}
-								</a>
-								<span class="text-xs text-attenue">{time} min</span>
-							</div>
-
-							<h3 class="mt-3 text-lg font-semibold leading-snug group-hover:text-accent">
-								<a href={`/blog/${post.id}`} class="focus:outline-none">
-									{post.data.title}
-								</a>
-							</h3>
-
-							<p class="mt-2 line-clamp-2 flex-1 text-xs text-attenue sm:text-sm">
-								{post.data.description}
-							</p>
-
-							<div class="mt-4 flex items-center justify-between border-t border-bordure/60 pt-3 text-xs text-attenue">
-								<span>{author.name}</span>
-								<time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
-							</div>
-						</div>
-					</article>
-				);
-			})}
+			{related.map((post) => (
+				<ArticleCard post={post} />
+			))}
 		</div>
 	</section>
 )}
