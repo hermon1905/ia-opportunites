@@ -1,0 +1,58 @@
+---
+/**
+ * Emplacement publicitaire prêt pour Google AdSense ou régie partenaire.
+ * - En production, si ADS.enabled est à false, cet élément est 100% invisible.
+ * - En développement (localhost), un cadre discret en pointillés indique son emplacement.
+ * - Dès que ADS.enabled passe à true dans src/config.ts, le script AdSense se charge.
+ */
+import { ADS } from '../config';
+
+interface Props {
+	slot?: string;
+	label?: string;
+	format?: 'auto' | 'rectangle' | 'horizontal';
+	class?: string;
+}
+
+const {
+	slot = '',
+	label = 'Publicité',
+	format = 'auto',
+	class: className = '',
+} = Astro.props;
+
+const isDev = import.meta.env.DEV;
+---
+
+{ADS.enabled && slot ? (
+	<aside
+		aria-label={label}
+		class:list={['my-8 overflow-hidden text-center', className]}
+	>
+		<p class="mb-1 text-[10px] uppercase tracking-wider text-attenue/70">{label}</p>
+		<ins
+			class="adsbygoogle"
+			style="display:block"
+			data-ad-client={ADS.client}
+			data-ad-slot={slot}
+			data-ad-format={format}
+			data-full-width-responsive="true"
+		></ins>
+		<script is:inline>
+			(window.adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</aside>
+) : isDev ? (
+	<aside
+		aria-label={`Emplacement publicitaire : ${label}`}
+		class:list={[
+			'my-8 rounded-2xl border border-dashed border-bordure/80 bg-surface-2/40 p-5 text-center text-xs text-attenue',
+			className,
+		]}
+	>
+		<p class="font-semibold text-texte">Emplacement publicitaire ({label})</p>
+		<p class="mt-1 text-[11px] text-attenue">
+			Inactif en production. Pour l'activer, renseigne tes identifiants dans <code class="rounded bg-surface-2 px-1 py-0.5 text-accent">src/config.ts</code> (<code class="text-accent">ADS.enabled = true</code>).
+		</p>
+	</aside>
+) : null}

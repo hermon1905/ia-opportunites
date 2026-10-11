@@ -14,6 +14,9 @@ import AuthorCard from '../../components/AuthorCard.astro';
 import NewsletterCta from '../../components/NewsletterCta.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
 import PostNavigation from '../../components/PostNavigation.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import AffiliateNotice from '../../components/AffiliateNotice.astro';
+import { ADS } from '../../config';
 import { getPublishedPosts, readingTime, formatDate, type Post } from '../../utils/posts';
 import { getCategory, CATEGORY_STYLES } from '../../data/categories';
 import { getAuthor, initials } from '../../data/authors';
@@ -133,6 +136,14 @@ const minutes = readingTime(post.body);
 			)}
 		</figure>
 
+		<!-- Mention d'affiliation (si tag affilié présent) -->
+		{post.data.tags && post.data.tags.some((t) => ['affiliation', 'affilie', 'partenaire', 'sponsorise'].includes(t)) && (
+			<AffiliateNotice />
+		)}
+
+		<!-- Emplacement publicitaire haut d'article -->
+		<AdSlot slot={ADS.slots.articleTop} label="Haut d'article" />
+
 		<!-- Sommaire interactif -->
 		<TableOfContents headings={headings} />
 
@@ -152,6 +163,9 @@ const minutes = readingTime(post.body);
 				))}
 			</div>
 		)}
+
+		<!-- Emplacement publicitaire bas d'article -->
+		<AdSlot slot={ADS.slots.articleBottom} label="Fin d'article" />
 
 		<!-- Boutons de partage -->
 		<ShareButtons title={post.data.title} description={post.data.description} />
