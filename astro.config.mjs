@@ -16,6 +16,7 @@ export default defineConfig({
   build: { format: 'file' },
   redirects: {
     '/boutique': '/formations',
+    '/sitemap.xml': '/sitemap-index.xml',
   },
   // Précharge une page quand on survole/touche un lien : navigation quasi instantanée
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
