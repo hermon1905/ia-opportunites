@@ -1,0 +1,376 @@
+---
+/**
+ * Page Bibliothèque de Prompts IA : /prompts
+ * Espace gratuit et interactif pour attirer des visiteurs qualifiés,
+ * offrir de la valeur immédiate et orienter vers les formations approfondies.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { PROMPTS, PROMPT_CATEGORIES } from '../data/prompts';
+
+// Calcul du nombre de prompts par catégorie
+const countsByCategory: Record<string, number> = {
+	tous: PROMPTS.length,
+};
+PROMPTS.forEach((p) => {
+	countsByCategory[p.category] = (countsByCategory[p.category] || 0) + 1;
+});
+---
+
+<BaseLayout
+	title="Prompts IA Prêts à l'Emploi (Gratuits) — Vente, Vidéos, Freelance & Études"
+	description="Bibliothèque de prompts ChatGPT et Claude gratuits et testés pour l'Afrique : closing WhatsApp, scripts vidéos viraux, prospection freelance et révisions."
+>
+	<!-- En-tête de la page -->
+	<header class="border-b border-bordure bg-surface/50 py-10 sm:py-14">
+		<div class="conteneur max-w-5xl">
+			<Breadcrumbs items={[{ label: 'Prompts IA' }]} class="mb-5" />
+			<div class="flex flex-wrap items-center gap-2">
+				<span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 ring-1 ring-emerald-500/30 dark:bg-emerald-500/20 dark:text-emerald-400">
+					<span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+					100% Gratuit & Prêt à Copier
+				</span>
+				<span class="text-xs text-attenue">·</span>
+				<span class="text-xs font-medium text-attenue">{PROMPTS.length} prompts optimisés</span>
+			</div>
+			<h1 class="mt-3 text-3xl font-semibold leading-tight sm:text-5xl">
+				Boîte à Prompts IA Prêts à l'Emploi
+			</h1>
+			<p class="mt-3 max-w-2xl text-base text-attenue sm:text-lg">
+				Des instructions précises et testées pour ChatGPT, Claude et Midjourney. Copiez-les en un clic, remplacez les informations entre crochets et obtenez des résultats professionnels sur votre smartphone ou PC.
+			</p>
+		</div>
+	</header>
+
+	<main class="conteneur max-w-5xl py-8 sm:py-12">
+		<!-- Barre de recherche et filtres de catégorie -->
+		<section class="mb-10 space-y-4">
+			<!-- Champ de recherche en direct -->
+			<div class="relative">
+				<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-attenue">
+					<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<circle cx="11" cy="11" r="8"></circle>
+						<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+					</svg>
+				</div>
+				<input
+					type="search"
+					id="prompt-search"
+					placeholder="Rechercher par mot-clé (ex: WhatsApp, prix, client, TikTok, CV, trading...)"
+					class="w-full rounded-2xl border border-bordure bg-surface py-3.5 pl-11 pr-10 text-sm text-texte placeholder:text-attenue focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition shadow-sm"
+					autocomplete="off"
+				/>
+				<button
+					type="button"
+					id="clear-search"
+					class="hidden absolute inset-y-0 right-0 items-center pr-3.5 text-xs font-semibold text-attenue hover:text-texte"
+					aria-label="Effacer la recherche"
+				>
+					✕
+				</button>
+			</div>
+
+			<!-- Boutons de filtrage par catégorie -->
+			<div class="flex flex-wrap items-center gap-2 pt-1" id="category-filters" role="tablist" aria-label="Filtrer par catégorie">
+				{PROMPT_CATEGORIES.map((cat, index) => (
+					<button
+						type="button"
+						data-filter-category={cat.id}
+						role="tab"
+						aria-selected={index === 0 ? 'true' : 'false'}
+						class:list={[
+							'filter-btn inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-medium transition cursor-pointer',
+							index === 0
+								? 'bg-accent text-white shadow-sm'
+								: 'border border-bordure bg-surface text-attenue hover:bg-surface-2 hover:text-texte',
+						]}
+					>
+						<span>{cat.icon}</span>
+						<span>{cat.label}</span>
+						<span class="ml-1 rounded-md bg-black/10 px-1.5 py-0.2 text-[10px] font-bold dark:bg-white/10">
+							{countsByCategory[cat.id] || 0}
+						</span>
+					</button>
+				))}
+			</div>
+		</section>
+
+		<!-- Liste des prompts -->
+		<section id="prompts-grid" class="grid grid-cols-1 gap-6 md:grid-cols-2" aria-live="polite">
+			{PROMPTS.map((item) => (
+				<article
+					class="prompt-card flex flex-col justify-between rounded-3xl border border-bordure bg-surface p-6 shadow-sm transition hover:shadow-md hover:border-bordure/90"
+					data-category={item.category}
+					data-tool={item.tool}
+					data-tags={item.tags.join(' ')}
+					data-title={item.title.toLowerCase()}
+					data-prompt={item.prompt.toLowerCase()}
+				>
+					<div>
+						<!-- En-tête de la carte : Catégorie & Modèle recommandé -->
+						<div class="flex items-center justify-between gap-2">
+							<span class="rounded-lg bg-accent-doux px-2.5 py-1 text-[11px] font-semibold text-accent">
+								{item.categoryLabel}
+							</span>
+							<span class="inline-flex items-center gap-1 rounded-lg border border-bordure bg-surface-2 px-2.5 py-1 text-[11px] font-medium text-attenue">
+								<svg class="h-3 w-3 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+									<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+								</svg>
+								{item.tool}
+							</span>
+						</div>
+
+						<!-- Titre et description d'usage -->
+						<h2 class="mt-3.5 text-lg font-semibold leading-snug text-texte">
+							{item.title}
+						</h2>
+						<p class="mt-1.5 text-xs text-attenue leading-relaxed">
+							{item.description}
+						</p>
+
+						<!-- Boîte de texte du prompt -->
+						<div class="relative mt-4 group">
+							<div class="max-h-56 overflow-y-auto rounded-2xl border border-bordure/80 bg-surface-2/60 p-4 font-mono text-xs text-texte/90 leading-relaxed whitespace-pre-wrap select-all focus:outline-none">
+								{item.prompt}
+							</div>
+						</div>
+
+						<!-- Astuce pro -->
+						{item.tip && (
+							<div class="mt-3.5 flex items-start gap-2 rounded-xl bg-amber-500/10 p-3 text-[11px] text-amber-800 dark:text-amber-300">
+								<span class="shrink-0 text-sm">💡</span>
+								<p class="leading-normal">
+									<strong class="font-semibold">Astuce :</strong> {item.tip}
+								</p>
+							</div>
+						)}
+					</div>
+
+					<!-- Bas de carte : Bouton Copier & Recommandation formation -->
+					<div class="mt-5 pt-4 border-t border-bordure/60 space-y-3">
+						<button
+							type="button"
+							data-copy-prompt
+							data-clipboard-text={item.prompt}
+							class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-xs font-semibold text-white transition hover:opacity-95 focus:outline-none active:scale-[0.98] shadow-sm cursor-pointer"
+						>
+							<svg class="h-4 w-4 copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+								<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+							</svg>
+							<svg class="hidden h-4 w-4 check-icon text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<polyline points="20 6 9 17 4 12" />
+							</svg>
+							<span class="btn-text">Copier le prompt</span>
+						</button>
+
+						<!-- Passerelle de conversion vers la formation -->
+						{item.relatedFormation && (
+							<a
+								href={item.relatedFormation.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="group flex items-center justify-between rounded-xl border border-dashed border-bordure bg-surface-2/40 px-3 py-2 text-[11px] text-attenue transition hover:border-accent hover:bg-accent-doux/40 hover:text-accent"
+							>
+								<div class="flex items-center gap-1.5 truncate">
+									<span class="text-xs">🚀</span>
+									<span class="truncate font-medium">{item.relatedFormation.title}</span>
+								</div>
+								<span class="shrink-0 text-accent font-semibold group-hover:translate-x-0.5 transition">
+									Découvrir &rarr;
+								</span>
+							</a>
+						)}
+					</div>
+				</article>
+			))}
+		</section>
+
+		<!-- Message si aucun prompt ne correspond à la recherche -->
+		<div id="no-results" class="hidden rounded-3xl border border-bordure bg-surface p-12 text-center mt-6">
+			<span class="text-4xl">🔍</span>
+			<h3 class="mt-3 text-lg font-semibold text-texte">Aucun prompt ne correspond à votre recherche</h3>
+			<p class="mt-1 text-sm text-attenue max-w-md mx-auto">
+				Essayez avec un mot-clé plus court (ex: « client », « prix », « vidéo ») ou sélectionnez une autre catégorie.
+			</p>
+			<button
+				type="button"
+				id="reset-filters"
+				class="mt-5 btn-secondaire text-xs"
+			>
+				Réinitialiser tous les filtres
+			</button>
+		</div>
+
+		<!-- Encart CTA Formations Complètes au bas de page -->
+		<aside class="mt-14 rounded-3xl border border-bordure bg-gradient-to-br from-surface to-surface-2 p-7 sm:p-10 shadow-sm">
+			<div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+				<div class="max-w-2xl">
+					<p class="text-xs font-semibold uppercase tracking-wider text-accent">Aller plus loin</p>
+					<h2 class="mt-1 text-2xl font-semibold sm:text-3xl text-texte">
+						Envie de passer des simples prompts à des revenus concrets ?
+					</h2>
+					<p class="mt-2 text-sm text-attenue sm:text-base leading-relaxed">
+						Nos formations approfondies vous guident pas-à-pas pour créer des vidéos photoréalistes, automatiser la vente de produits digitaux et négocier comme un pro depuis votre smartphone.
+					</p>
+				</div>
+				<div class="shrink-0">
+					<a href="/formations" class="btn-primaire text-sm py-3 px-6 shadow-md inline-flex items-center gap-2">
+						<span>Voir toutes nos formations</span>
+						<span>&rarr;</span>
+					</a>
+				</div>
+			</div>
+		</aside>
+	</main>
+
+	<!-- Toast de confirmation de copie -->
+	<div
+		id="copy-toast"
+		class="pointer-events-none fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-2xl bg-texte px-4 py-3 text-xs font-semibold text-fond opacity-0 shadow-2xl transition-all duration-200 translate-y-3"
+		role="status"
+		aria-live="polite"
+	>
+		<svg class="h-4 w-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+			<polyline points="20 6 9 17 4 12" />
+		</svg>
+		<span>Prompt copié dans le presse-papier !</span>
+	</div>
+</BaseLayout>
+
+<script>
+	function setupPromptsPage() {
+		const searchInput = document.getElementById('prompt-search') as HTMLInputElement | null;
+		const clearSearchBtn = document.getElementById('clear-search') as HTMLButtonElement | null;
+		const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter-category]');
+		const cards = document.querySelectorAll<HTMLElement>('.prompt-card');
+		const noResults = document.getElementById('no-results');
+		const resetBtn = document.getElementById('reset-filters');
+		const toast = document.getElementById('copy-toast');
+
+		let currentCategory = 'tous';
+		let searchQuery = '';
+
+		function applyFilters() {
+			let visibleCount = 0;
+			const query = searchQuery.trim().toLowerCase();
+
+			cards.forEach((card) => {
+				const cardCat = card.getAttribute('data-category') || '';
+				const title = card.getAttribute('data-title') || '';
+				const promptText = card.getAttribute('data-prompt') || '';
+				const tags = card.getAttribute('data-tags') || '';
+
+				const matchesCat = currentCategory === 'tous' || cardCat === currentCategory;
+				const matchesSearch =
+					!query ||
+					title.includes(query) ||
+					promptText.includes(query) ||
+					tags.includes(query);
+
+				if (matchesCat && matchesSearch) {
+					card.classList.remove('hidden');
+					visibleCount++;
+				} else {
+					card.classList.add('hidden');
+				}
+			});
+
+			if (noResults) {
+				noResults.classList.toggle('hidden', visibleCount > 0);
+			}
+
+			if (clearSearchBtn) {
+				clearSearchBtn.classList.toggle('hidden', query.length === 0);
+			}
+		}
+
+		// Gestion de la recherche
+		searchInput?.addEventListener('input', (e) => {
+			searchQuery = (e.target as HTMLInputElement).value;
+			applyFilters();
+		});
+
+		clearSearchBtn?.addEventListener('click', () => {
+			if (searchInput) {
+				searchInput.value = '';
+				searchQuery = '';
+				applyFilters();
+				searchInput.focus();
+			}
+		});
+
+		// Gestion du clic sur les filtres de catégorie
+		filterButtons.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const targetCat = btn.getAttribute('data-filter-category') || 'tous';
+				currentCategory = targetCat;
+
+				filterButtons.forEach((b) => {
+					const isCurrent = b === btn;
+					b.setAttribute('aria-selected', String(isCurrent));
+					b.classList.toggle('bg-accent', isCurrent);
+					b.classList.toggle('text-white', isCurrent);
+					b.classList.toggle('shadow-sm', isCurrent);
+					b.classList.toggle('border', !isCurrent);
+					b.classList.toggle('border-bordure', !isCurrent);
+					b.classList.toggle('bg-surface', !isCurrent);
+					b.classList.toggle('text-attenue', !isCurrent);
+				});
+
+				applyFilters();
+			});
+		});
+
+		// Réinitialisation
+		resetBtn?.addEventListener('click', () => {
+			if (searchInput) searchInput.value = '';
+			searchQuery = '';
+			const firstFilter = document.querySelector<HTMLButtonElement>('[data-filter-category="tous"]');
+			firstFilter?.click();
+		});
+
+		// Gestion de la copie des prompts
+		document.querySelectorAll<HTMLButtonElement>('[data-copy-prompt]').forEach((button) => {
+			button.addEventListener('click', async () => {
+				const text = button.getAttribute('data-clipboard-text') || '';
+				const copyIcon = button.querySelector('.copy-icon');
+				const checkIcon = button.querySelector('.check-icon');
+				const btnText = button.querySelector('.btn-text');
+
+				try {
+					await navigator.clipboard.writeText(text);
+
+					// Animation bouton
+					copyIcon?.classList.add('hidden');
+					checkIcon?.classList.remove('hidden');
+					if (btnText) btnText.textContent = 'Copié !';
+					button.classList.add('bg-emerald-600');
+
+					// Animation toast
+					if (toast) {
+						toast.classList.remove('opacity-0', 'translate-y-3');
+						toast.classList.add('opacity-100', 'translate-y-0');
+					}
+
+					setTimeout(() => {
+						copyIcon?.classList.remove('hidden');
+						checkIcon?.classList.add('hidden');
+						if (btnText) btnText.textContent = 'Copier le prompt';
+						button.classList.remove('bg-emerald-600');
+
+						if (toast) {
+							toast.classList.remove('opacity-100', 'translate-y-0');
+							toast.classList.add('opacity-0', 'translate-y-3');
+						}
+					}, 2500);
+				} catch (err) {
+					console.error('Erreur lors de la copie', err);
+				}
+			});
+		});
+	}
+
+	setupPromptsPage();
+	document.addEventListener('astro:page-load', setupPromptsPage);
+</script>

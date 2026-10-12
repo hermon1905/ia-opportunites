@@ -115,6 +115,10 @@ const schemaArticle =
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 )}
 
+{SITE.googleSiteVerification && (
+	<meta name="google-site-verification" content={SITE.googleSiteVerification} />
+)}
+
 <!-- Découverte RSS et Sitemap -->
 <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
 <link rel="sitemap" href="/sitemap-index.xml" />

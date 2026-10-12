@@ -12,11 +12,17 @@ export const SITE = {
   author: 'IA OPPORTUNITES',
   email: 'hermon.niava01@gmail.com',
   postsPerPage: 9,
+  /**
+   * Code de validation Google Search Console (balise meta).
+   * Ex: "google-site-verification=XXXXXXXXXXXXXXXXXXXXX" ou juste le code "XXXXXXXXXXXXXXXXXXXXX"
+   */
+  googleSiteVerification: '',
 };
 
 /** Menu principal (en-tête) */
 export const NAV = [
   { label: 'Articles', href: '/blog' },
+  { label: 'Prompts IA', href: '/prompts' },
   { label: 'Formations', href: '/formations' },
   { label: 'Partenariats', href: '/partenariats' },
   { label: 'À propos', href: '/a-propos' },
@@ -27,6 +33,7 @@ export const NAV = [
 export const FOOTER_LINKS = {
   site: [
     { label: 'Tous les articles', href: '/blog' },
+    { label: 'Prompts IA (Gratuit)', href: '/prompts' },
     { label: 'Formations', href: '/formations' },
     { label: 'Travailler avec moi', href: '/partenariats' },
     { label: 'À propos', href: '/a-propos' },
