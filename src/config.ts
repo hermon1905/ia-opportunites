@@ -10,7 +10,7 @@ export const SITE = {
   lang: 'fr',
   locale: 'fr_FR',
   author: 'IA OPPORTUNITES',
-  email: 'contact@exemple.com', // à remplacer
+  email: 'hermon.niava01@gmail.com',
   postsPerPage: 9,
 };
 

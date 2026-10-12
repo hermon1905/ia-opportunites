@@ -34,9 +34,17 @@ import { SITE, SOCIAL } from '../config';
 					</p>
 
 					<form
+						id="contact-form"
+						action="https://formsubmit.co/hermon.niava01@gmail.com"
+						method="POST"
 						class="mt-8 space-y-5"
-						onsubmit="event.preventDefault(); const res = this.querySelector('[data-contact-success]'); if(res) { res.classList.remove('hidden'); this.reset(); }"
 					>
+						<!-- FormSubmit configuration anti-spam & sujet -->
+						<input type="hidden" name="_subject" value="Nouveau message depuis le blog IA OPPORTUNITES" />
+						<input type="hidden" name="_captcha" value="false" />
+						<input type="hidden" name="_template" value="table" />
+						<input type="text" name="_honey" style="display:none" />
+
 						<div>
 							<label for="name" class="block text-xs font-semibold uppercase tracking-wider text-texte">Votre nom ou prénom</label>
 							<input
@@ -68,10 +76,10 @@ import { SITE, SOCIAL } from '../config';
 								name="subject"
 								class="mt-2 w-full rounded-xl border border-bordure bg-surface-2/60 px-4 py-3 text-sm text-texte focus:border-accent focus:bg-surface focus:outline-none focus:ring-2 focus:ring-accent/20"
 							>
-								<option value="question">Question sur un article / un outil</option>
-								<option value="partenariat">Proposition de partenariat / sponsor</option>
-								<option value="article">Proposition de sujet ou témoignage</option>
-								<option value="autre">Autre demande</option>
+								<option value="Question sur un article / un outil">Question sur un article / un outil</option>
+								<option value="Proposition de partenariat / sponsor">Proposition de partenariat / sponsor</option>
+								<option value="Proposition de sujet ou témoignage">Proposition de sujet ou témoignage</option>
+								<option value="Autre demande">Autre demande</option>
 							</select>
 						</div>
 
@@ -87,12 +95,15 @@ import { SITE, SOCIAL } from '../config';
 							></textarea>
 						</div>
 
-						<button type="submit" class="btn-primaire w-full py-3.5 text-sm font-semibold">
+						<button type="submit" id="contact-btn" class="btn-primaire w-full py-3.5 text-sm font-semibold transition duration-200 hover:scale-[1.01]">
 							Envoyer mon message
 						</button>
 
-						<p data-contact-success class="mt-4 hidden rounded-xl bg-emerald-500/10 p-4 text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-							✓ Votre message a bien été envoyé ! Nous vous répondrons dans les plus brefs délais.
+						<p data-contact-success class="mt-4 hidden rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-center text-xs sm:text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+							✓ Votre message a bien été envoyé ! Nous vous répondrons directement par e-mail sous 24h à 48h.
+						</p>
+						<p data-contact-error class="mt-4 hidden rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-center text-xs sm:text-sm font-semibold text-red-600 dark:text-red-400">
+							Une erreur est survenue lors de l'envoi. Veuillez réessayer ou nous écrire directement à hermon.niava01@gmail.com.
 						</p>
 					</form>
 				</div>
@@ -143,4 +154,49 @@ import { SITE, SOCIAL } from '../config';
 			</div>
 		</div>
 	</main>
+
+	<script is:inline>
+		const form = document.getElementById('contact-form');
+		if (form) {
+			form.addEventListener('submit', async function (e) {
+				e.preventDefault();
+				const btn = document.getElementById('contact-btn');
+				const success = form.querySelector('[data-contact-success]');
+				const error = form.querySelector('[data-contact-error]');
+
+				if (success) success.classList.add('hidden');
+				if (error) error.classList.add('hidden');
+
+				if (btn) {
+					btn.disabled = true;
+					btn.innerText = 'Envoi en cours...';
+				}
+
+				try {
+					const formData = new FormData(form);
+					const res = await fetch('https://formsubmit.co/ajax/hermon.niava01@gmail.com', {
+						method: 'POST',
+						body: formData,
+						headers: {
+							Accept: 'application/json',
+						},
+					});
+
+					if (res.ok) {
+						if (success) success.classList.remove('hidden');
+						form.reset();
+					} else {
+						if (error) error.classList.remove('hidden');
+					}
+				} catch (err) {
+					if (error) error.classList.remove('hidden');
+				} finally {
+					if (btn) {
+						btn.disabled = false;
+						btn.innerText = 'Envoyer mon message';
+					}
+				}
+			});
+		}
+	</script>
 </BaseLayout>
