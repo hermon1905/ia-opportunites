@@ -16,7 +16,7 @@ export const SITE = {
    * Code de validation Google Search Console (balise meta).
    * Ex: "google-site-verification=XXXXXXXXXXXXXXXXXXXXX" ou juste le code "XXXXXXXXXXXXXXXXXXXXX"
    */
-  googleSiteVerification: '',
+  googleSiteVerification: 'MvXlBLu8C1EyjFOCQU4Q6fDJExVkS-JzfDpP0X_qH9w',
 };
 
 /** Menu principal (en-tête) */
