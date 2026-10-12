@@ -10,7 +10,7 @@ export const SITE = {
   lang: 'fr',
   locale: 'fr_FR',
   author: 'IA OPPORTUNITES',
-  email: 'hermon.niava01@gmail.com',
+  email: 'contact.opportunitesia@gmail.com',
   postsPerPage: 9,
   /**
    * Code de validation Google Search Console (balise meta).

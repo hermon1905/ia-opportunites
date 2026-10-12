@@ -34,7 +34,7 @@ Google Search Console (GSC) est l'outil officiel et 100% gratuit de Google pour 
 
 ### Étape 1 : Accéder à Google Search Console
 1. Rendez-vous sur [search.google.com/search-console](https://search.google.com/search-console).
-2. Connectez-vous avec votre adresse Gmail (`hermon.niava01@gmail.com`).
+2. Connectez-vous avec votre adresse Gmail (`contact.opportunitesia@gmail.com` ou votre compte Google).
 
 ### Étape 2 : Ajouter votre propriété
 1. Choisissez l'option de droite **« Préfixe de l'URL »**.
