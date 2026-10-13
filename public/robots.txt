@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 
 # Sitemap officiel du site
+Sitemap: https://ia-opportunites.pages.dev/sitemap.xml
 Sitemap: https://ia-opportunites.pages.dev/sitemap-index.xml
 Sitemap: https://ia-opportunites.pages.dev/sitemap-0.xml
