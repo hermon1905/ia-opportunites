@@ -4,9 +4,9 @@
  */
 export const SITE = {
   name: 'IA OPPORTUNITES',
-  tagline: "L'IA au service de la jeunesse africaine",
+  tagline: "L'IA au service de la jeunesse en Côte d'Ivoire & en Afrique",
   description:
-    "Le blog qui explique l'intelligence artificielle simplement et montre comment les jeunes, en Afrique et partout dans le monde, peuvent en faire une opportunité : éducation, emploi, outils, entrepreneuriat.",
+    "Le média de référence sur l'intelligence artificielle en Côte d'Ivoire et en Afrique : guides pratiques, outils gratuits, opportunités d'emploi, formations à Abidjan et business rentables.",
   lang: 'fr',
   locale: 'fr_FR',
   author: 'IA OPPORTUNITES',

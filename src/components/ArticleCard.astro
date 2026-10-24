@@ -24,7 +24,7 @@ const minutes = readingTime(post.body);
 
 <article
 	class:list={[
-		'group flex flex-col overflow-hidden rounded-2xl border border-bordure bg-surface transition duration-300 hover:-translate-y-1 hover:shadow-xl',
+		'group flex flex-col overflow-hidden rounded-2xl border border-bordure/80 bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/5',
 		featured ? 'md:grid md:grid-cols-12 md:rounded-3xl' : '',
 		className,
 	]}
@@ -47,7 +47,7 @@ const minutes = readingTime(post.body);
 					: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
 			}
 			formats={['avif', 'webp']}
-			class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+			class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
 			loading={featured ? 'eager' : 'lazy'}
 			fetchpriority={featured ? 'high' : 'auto'}
 		/>
@@ -69,7 +69,13 @@ const minutes = readingTime(post.body);
 				>
 					{category.name}
 				</a>
-				<span class="text-xs text-attenue">{minutes} min de lecture</span>
+				<span class="inline-flex items-center gap-1 text-xs text-attenue">
+					<svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="10"></circle>
+						<polyline points="12 6 12 12 16 14"></polyline>
+					</svg>
+					{minutes} min
+				</span>
 			</div>
 
 			<!-- Titre avec flèche ↗ au survol -->

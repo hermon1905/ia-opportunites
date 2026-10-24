@@ -140,19 +140,48 @@
 }
 /* Boutons */
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition duration-200 active:scale-[0.98];
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 active:scale-[0.98];
 }
 @utility btn-primaire {
-  @apply btn bg-accent text-white shadow-sm hover:bg-accent-fort dark:text-sable-950;
+  @apply btn bg-accent text-white shadow-md shadow-accent/20 hover:bg-accent-fort hover:shadow-lg hover:shadow-accent/30 dark:text-sable-950;
 }
 @utility btn-secondaire {
-  @apply btn border border-bordure bg-surface text-texte hover:bg-surface-2;
+  @apply btn border border-bordure bg-surface/90 text-texte backdrop-blur-md hover:bg-surface-2 hover:border-accent/40;
 }
 /* Petite étiquette (catégorie, badge) */
 @utility etiquette {
-  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-all duration-200;
 }
 /* Petit titre au-dessus d'un grand titre */
 @utility surtitre {
-  @apply text-sm font-semibold uppercase tracking-widest text-accent;
+  @apply text-xs sm:text-sm font-semibold uppercase tracking-widest text-accent;
+}
+
+/* Glassmorphism et effets premium */
+@utility glass-card {
+  @apply border border-bordure/70 bg-surface/80 backdrop-blur-xl shadow-sm transition-all duration-300;
+}
+@utility glass-pill {
+  @apply inline-flex items-center gap-2 rounded-full border border-bordure/80 bg-surface/70 px-3.5 py-1 text-xs font-medium text-texte backdrop-blur-md shadow-sm;
+}
+@utility glow-accent {
+  box-shadow: 0 0 25px -5px var(--accent);
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.04); }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
 }

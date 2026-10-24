@@ -1,8 +1,12 @@
 ---
 /**
  * Page d'accueil : /
- * Étape 5 : mise en page soignée, article à la une, exploration par thématique,
- * derniers articles avec ArticleCard, et encart newsletter.
+ * Design ultra-moderne, dynamique et orienté conversion :
+ * - Hero avec badges et statistiques d'impact Côte d'Ivoire & Afrique
+ * - Recherche en direct et filtres par mots-clés populaires à Abidjan
+ * - Piliers de valeur concrets (Business, Métiers, Outils sans data)
+ * - Article à la une sublimé et grille d'articles récents
+ * - Capture newsletter à haute valeur ajoutée
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
@@ -13,40 +17,194 @@ import { getPublishedPosts } from '../utils/posts';
 const posts = await getPublishedPosts();
 const featuredPost = posts.find((p) => p.data.featured) ?? posts[0];
 const recentPosts = posts.filter((p) => p.id !== featuredPost?.id);
+
+// Mots-clés recherchés en Côte d'Ivoire
+const TRENDING_TAGS = [
+	{ label: '#SNIA2030', query: 'SNIA' },
+	{ label: '#Abidjan', query: 'Abidjan' },
+	{ label: '#WaveBusiness', query: 'Wave' },
+	{ label: '#PromptEngineering', query: 'prompt' },
+	{ label: '#CanvaIA', query: 'Canva' },
+	{ label: '#FreelanceAfrique', query: 'freelance' },
+	{ label: '#OutilsSansGiga', query: 'data' },
+];
 ---
 
-<BaseLayout>
-	<!-- Hero / En-tête d'introduction -->
-	<section class="relative overflow-hidden border-b border-bordure bg-surface/30">
+<BaseLayout
+	title="IA Opportunités — Le Média Référence sur l'IA en Côte d'Ivoire & en Afrique"
+	description="Guides concrets, outils gratuits, opportunités de business payées par Wave/OM et formations pour réussir avec l'intelligence artificielle à Abidjan et en Afrique."
+>
+	<!-- Hero Section Ultra-Moderne avec Glow & Badges -->
+	<section class="relative overflow-hidden border-b border-bordure bg-surface/40 pb-16 pt-12 sm:pb-24 sm:pt-20">
+		<!-- Dégradés décoratifs d'ambiance -->
 		<div
 			aria-hidden="true"
-			class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60rem_30rem_at_50%_-10%,var(--color-terracotta-100),transparent)] dark:bg-[radial-gradient(60rem_30rem_at_50%_-10%,#3a1d12,transparent)]"
+			class="pointer-events-none absolute -left-20 -top-20 h-96 w-96 rounded-full bg-terracotta-500/15 blur-3xl dark:bg-terracotta-600/10"
 		></div>
-		<div class="conteneur py-14 text-center sm:py-20">
-			<p class="surtitre">IA & Jeunesse Africaine</p>
-			<h1 class="mx-auto mt-3 max-w-3xl text-4xl font-semibold leading-tight sm:text-6xl">
-				L'IA, une <span class="italic text-accent">opportunité</span> pour la jeunesse
-			</h1>
-			<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-attenue sm:text-xl">
-				Des guides concrets, des outils légers et des opportunités réelles pour apprendre, travailler et entreprendre avec l'intelligence artificielle.
-			</p>
-			<div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-				<a href="/blog" class="btn-primaire px-6 py-3 text-base">Voir tous les articles ({posts.length})</a>
-				<a href="/#newsletter" class="btn-secondaire px-6 py-3 text-base">Recevoir la newsletter</a>
+		<div
+			aria-hidden="true"
+			class="pointer-events-none absolute -right-20 top-1/4 h-96 w-96 rounded-full bg-ocre-500/15 blur-3xl dark:bg-ocre-600/10"
+		></div>
+
+		<div class="conteneur relative">
+			<div class="mx-auto max-w-4xl text-center">
+				<!-- Badge dynamique -->
+				<div class="inline-flex items-center gap-2 rounded-full border border-terracotta-300/60 bg-terracotta-50/80 px-4 py-1.5 text-xs font-semibold text-terracotta-800 backdrop-blur-md dark:border-terracotta-800 dark:bg-terracotta-950/80 dark:text-terracotta-200">
+					<span class="flex h-2 w-2 rounded-full bg-terracotta-600 animate-pulse"></span>
+					<span>🇨🇮 Le Média Référence IA · Côte d'Ivoire & Afrique de l'Ouest</span>
+				</div>
+
+				<!-- Grand Titre avec dégradé chaud -->
+				<h1 class="mt-6 text-4xl font-semibold tracking-tight sm:text-6xl sm:leading-[1.12]">
+					L'Intelligence Artificielle en Afrique : <br />
+					<span class="bg-gradient-to-r from-terracotta-600 via-ocre-600 to-terracotta-500 bg-clip-text text-transparent dark:from-terracotta-400 dark:via-ocre-300 dark:to-terracotta-300">
+						Votre Accélérateur d'Opportunités
+					</span>
+				</h1>
+
+				<p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-attenue sm:text-xl">
+					Des méthodes éprouvées à Abidjan pour gagner du temps, lancer des business rentables payés par Wave / Orange Money et décrocher les métiers technologiques d'avenir.
+				</p>
+
+				<!-- Boutons d'action -->
+				<div class="mt-8 flex flex-col justify-center gap-3.5 sm:flex-row">
+					<a href="/blog" class="btn-primaire px-7 py-3.5 text-base">
+						<span>Explorer nos guides gratuits</span>
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+					</a>
+					<a href="/prompts" class="btn-secondaire px-7 py-3.5 text-base">
+						<span>✨ Boîte à Prompts IA (Gratuit)</span>
+					</a>
+				</div>
+
+				<!-- Indicateurs de confiance et métriques clés -->
+				<div class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+					<div class="rounded-2xl border border-bordure/70 bg-surface/70 p-4 backdrop-blur-md">
+						<p class="text-2xl font-bold text-accent sm:text-3xl">{posts.length}+</p>
+						<p class="mt-1 text-xs font-medium text-attenue">Guides & Analyses Pratiques</p>
+					</div>
+					<div class="rounded-2xl border border-bordure/70 bg-surface/70 p-4 backdrop-blur-md">
+						<p class="text-2xl font-bold text-ocre-600 dark:text-ocre-400 sm:text-3xl">Abidjan</p>
+						<p class="mt-1 text-xs font-medium text-attenue">Cas Réels SNIA 2030</p>
+					</div>
+					<div class="rounded-2xl border border-bordure/70 bg-surface/70 p-4 backdrop-blur-md">
+						<p class="text-2xl font-bold text-foret-600 dark:text-foret-400 sm:text-3xl">0 FCFA</p>
+						<p class="mt-1 text-xs font-medium text-attenue">Outils Mobiles Gratuits</p>
+					</div>
+					<div class="rounded-2xl border border-bordure/70 bg-surface/70 p-4 backdrop-blur-md">
+						<p class="text-2xl font-bold text-terracotta-600 dark:text-terracotta-400 sm:text-3xl">Wave & OM</p>
+						<p class="mt-1 text-xs font-medium text-attenue">Revenus & Monétisation</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Article à la une (si disponible) -->
-	{featuredPost && (
-		<section class="conteneur pt-12 sm:pt-16">
-			<div class="mb-4 flex items-center justify-between">
-				<div class="flex items-center gap-2">
-					<span class="flex h-2.5 w-2.5 rounded-full bg-accent animate-pulse"></span>
-					<p class="surtitre">À la une</p>
+	<!-- Barre de recherche rapide & Sujets Tendance -->
+	<section class="border-b border-bordure bg-surface/30 py-6">
+		<div class="conteneur">
+			<div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+				<!-- Barre de recherche locale -->
+				<div class="relative w-full md:max-w-md">
+					<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-attenue">
+						<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="11" cy="11" r="8"></circle>
+							<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+						</svg>
+					</div>
+					<input
+						type="search"
+						id="home-search"
+						placeholder="Rechercher : Abidjan, WhatsApp, Wave, Outils..."
+						class="w-full rounded-xl border border-bordure bg-surface py-2.5 pl-10 pr-4 text-xs sm:text-sm text-texte placeholder:text-attenue focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition"
+					/>
 				</div>
-				<a href="/blog" class="text-sm font-semibold text-accent hover:underline">
-					Tous les articles &rarr;
+
+				<!-- Mots-clés en vogue -->
+				<div class="flex w-full flex-wrap items-center gap-1.5 overflow-x-auto pb-1 md:w-auto md:pb-0">
+					<span class="text-xs font-semibold text-attenue">Tendances :</span>
+					{TRENDING_TAGS.map((t) => (
+						<button
+							type="button"
+							data-search-tag={t.query}
+							class="rounded-lg border border-bordure bg-surface px-2.5 py-1 text-xs font-medium text-attenue transition hover:border-accent/40 hover:bg-surface-2 hover:text-accent"
+						>
+							{t.label}
+						</button>
+					))}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 3 Piliers Concrets : Ce que l'IA change pour vous -->
+	<section class="conteneur py-14 sm:py-20">
+		<div class="mx-auto max-w-2xl text-center">
+			<p class="surtitre">L'Afrique Connectée</p>
+			<h2 class="mt-2 text-2xl font-semibold sm:text-4xl">Pourquoi passer à l'action dès aujourd'hui ?</h2>
+			<p class="mt-3 text-sm leading-relaxed text-attenue sm:text-base">
+				L'IA n'est pas un concept abstrait. Voici trois façons concrètes dont elle transforme votre quotidien en Côte d'Ivoire.
+			</p>
+		</div>
+
+		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			<!-- Pilier 1 -->
+			<div class="group relative rounded-3xl border border-bordure/80 bg-surface p-7 transition duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-xl">
+				<div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-terracotta-50 text-2xl text-terracotta-600 ring-1 ring-terracotta-200 dark:bg-terracotta-950/60 dark:text-terracotta-300 dark:ring-terracotta-900">
+					💰
+				</div>
+				<h3 class="mt-5 text-xl font-semibold text-texte">Lancer un business à 0 FCFA</h3>
+				<p class="mt-3 text-sm leading-relaxed text-attenue">
+					Créez des fiches produits percutantes pour commerçants, automatisez les commandes WhatsApp et recevez vos paiements instantanément par Wave ou Orange Money.
+				</p>
+				<a href="/categorie/entrepreneuriat" class="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-accent hover:underline">
+					<span>Voir les opportunités business</span>
+					<span>&rarr;</span>
+				</a>
+			</div>
+
+			<!-- Pilier 2 -->
+			<div class="group relative rounded-3xl border border-bordure/80 bg-surface p-7 transition duration-300 hover:-translate-y-1 hover:border-ocre-400 hover:shadow-xl">
+				<div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-ocre-50 text-2xl text-ocre-600 ring-1 ring-ocre-200 dark:bg-ocre-950/60 dark:text-ocre-300 dark:ring-ocre-900">
+					🚀
+				</div>
+				<h3 class="mt-5 text-xl font-semibold text-texte">Décrocher les métiers de 2026</h3>
+				<p class="mt-3 text-sm leading-relaxed text-attenue">
+					Spécialiste automatisation No-Code, Prompt Engineer, consultant IA pour PME : les entreprises d'Abidjan recrutent avec des salaires allant de 400 000 à 1 200 000 FCFA.
+				</p>
+				<a href="/categorie/ia-emploi-jeunes" class="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-ocre-600 dark:text-ocre-400 hover:underline">
+					<span>Guide des carrières & salaires</span>
+					<span>&rarr;</span>
+				</a>
+			</div>
+
+			<!-- Pilier 3 -->
+			<div class="group relative rounded-3xl border border-bordure/80 bg-surface p-7 transition duration-300 hover:-translate-y-1 hover:border-foret-400 hover:shadow-xl">
+				<div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-foret-50 text-2xl text-foret-600 ring-1 ring-foret-200 dark:bg-foret-950/60 dark:text-foret-300 dark:ring-foret-900">
+					⚡
+				</div>
+				<h3 class="mt-5 text-xl font-semibold text-texte">Outils ultra-légers sans exploser vos gigas</h3>
+				<p class="mt-3 text-sm leading-relaxed text-attenue">
+					NotebookLM pour réviser ses cours d'université, Claude Haiku et Perplexity : travaillez à pleine puissance même avec un forfait internet mobile limité.
+				</p>
+				<a href="/categorie/outils-ia" class="mt-5 inline-flex items-center gap-1 text-xs font-semibold text-foret-600 dark:text-foret-400 hover:underline">
+					<span>Découvrir les outils légers</span>
+					<span>&rarr;</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Article à la une -->
+	{featuredPost && (
+		<section class="conteneur pt-4 sm:pt-6">
+			<div class="mb-5 flex items-center justify-between">
+				<div class="flex items-center gap-2">
+					<span class="flex h-3 w-3 rounded-full bg-accent animate-pulse"></span>
+					<p class="surtitre">Article à la une</p>
+				</div>
+				<a href="/blog" class="text-xs sm:text-sm font-semibold text-accent hover:underline">
+					Tous les {posts.length} articles &rarr;
 				</a>
 			</div>
 
@@ -54,14 +212,14 @@ const recentPosts = posts.filter((p) => p.id !== featuredPost?.id);
 		</section>
 	)}
 
-	<!-- Navigation par catégories thématiques -->
-	<section class="conteneur pt-16">
+	<!-- Thématiques avec compteurs dynamiques -->
+	<section class="conteneur pt-16 sm:pt-20">
 		<div class="mb-6 flex items-center justify-between">
 			<div>
 				<p class="surtitre">Thématiques</p>
 				<h2 class="mt-1 text-2xl font-semibold sm:text-3xl">Explorer par sujet</h2>
 			</div>
-			<a href="/blog" class="text-sm font-semibold text-accent hover:underline">
+			<a href="/blog" class="text-xs sm:text-sm font-semibold text-accent hover:underline">
 				Tout voir &rarr;
 			</a>
 		</div>
@@ -80,7 +238,7 @@ const recentPosts = posts.filter((p) => p.id !== featuredPost?.id);
 									{cat.name}
 								</span>
 								<span class="text-xs text-attenue">
-									{count} article{count > 1 ? 's' : ''}
+									{count} guide{count > 1 ? 's' : ''}
 								</span>
 							</div>
 							<p class="mt-3 text-sm leading-relaxed text-attenue">
@@ -88,7 +246,7 @@ const recentPosts = posts.filter((p) => p.id !== featuredPost?.id);
 							</p>
 						</div>
 						<div class="mt-4 flex items-center gap-1 text-xs font-semibold text-accent opacity-0 transition group-hover:opacity-100">
-							<span>Découvrir</span>
+							<span>Consulter la catégorie</span>
 							<span>&rarr;</span>
 						</div>
 					</a>
@@ -99,27 +257,88 @@ const recentPosts = posts.filter((p) => p.id !== featuredPost?.id);
 
 	<!-- Derniers articles publiés -->
 	{recentPosts.length > 0 && (
-		<section class="conteneur py-16">
+		<section class="conteneur py-16 sm:py-20" id="articles-recents">
 			<div class="mb-8 flex items-center justify-between">
 				<div>
 					<p class="surtitre">Récemment publiés</p>
-					<h2 class="mt-1 text-2xl font-semibold sm:text-3xl">Derniers articles</h2>
+					<h2 class="mt-1 text-2xl font-semibold sm:text-3xl">Dernières publications</h2>
 				</div>
-				<a href="/blog" class="text-sm font-semibold text-accent hover:underline">
-					Voir les {posts.length} articles &rarr;
+				<a href="/blog" class="text-xs sm:text-sm font-semibold text-accent hover:underline">
+					Catalogue complet &rarr;
 				</a>
 			</div>
 
-			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
+			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3" id="posts-grid">
 				{recentPosts.map((post) => (
-					<ArticleCard post={post} />
+					<div class="post-item" data-title={post.data.title.toLowerCase()} data-desc={post.data.description.toLowerCase()} data-tags={post.data.tags.join(' ').toLowerCase()}>
+						<ArticleCard post={post} />
+					</div>
 				))}
+			</div>
+
+			<div id="no-results" class="hidden rounded-3xl border border-dashed border-bordure bg-surface p-12 text-center mt-6">
+				<p class="text-base font-semibold text-texte">Aucun article ne correspond à votre recherche.</p>
+				<p class="mt-1 text-sm text-attenue">Essayez d'autres mots-clés ou consultez l'ensemble du catalogue.</p>
+				<a href="/blog" class="btn-primaire mt-4 inline-flex">Voir tous les articles</a>
 			</div>
 		</section>
 	)}
 
-	<!-- Encart Newsletter -->
-	<div class="conteneur pb-16">
-		<NewsletterCta />
+	<!-- Encart Newsletter optimisé -->
+	<div class="conteneur pb-20">
+		<NewsletterCta
+			title="Recevez nos opportunités IA exclusives chaque vendredi"
+			description="Des tutoriels concrets, des prompts prêts à copier et les offres de freelancing/recrutement en Côte d'Ivoire directement dans votre boîte mail. Garanti sans spam."
+		/>
 	</div>
 </BaseLayout>
+
+<script>
+	// Recherche dynamique instantanée sur la page d'accueil
+	function initHomeSearch() {
+		const searchInput = document.getElementById('home-search') as HTMLInputElement | null;
+		const tagButtons = document.querySelectorAll<HTMLButtonElement>('[data-search-tag]');
+		const postItems = document.querySelectorAll<HTMLElement>('.post-item');
+		const noResults = document.getElementById('no-results');
+
+		if (!searchInput || postItems.length === 0) return;
+
+		const filterPosts = (query: string) => {
+			const clean = query.trim().toLowerCase();
+			let visibleCount = 0;
+
+			postItems.forEach((item) => {
+				const title = item.dataset.title || '';
+				const desc = item.dataset.desc || '';
+				const tags = item.dataset.tags || '';
+
+				const matches = !clean || title.includes(clean) || desc.includes(clean) || tags.includes(clean);
+				item.style.display = matches ? '' : 'none';
+				if (matches) visibleCount++;
+			});
+
+			if (noResults) {
+				noResults.classList.toggle('hidden', visibleCount > 0);
+			}
+		};
+
+		searchInput.addEventListener('input', (e) => {
+			filterPosts((e.target as HTMLInputElement).value);
+		});
+
+		tagButtons.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const tag = btn.dataset.searchTag || '';
+				searchInput.value = tag;
+				filterPosts(tag);
+				const recentsSection = document.getElementById('articles-recents');
+				if (recentsSection) {
+					recentsSection.scrollIntoView({ behavior: 'smooth' });
+				}
+			});
+		});
+	}
+
+	initHomeSearch();
+	document.addEventListener('astro:page-load', initHomeSearch);
+</script>
